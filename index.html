@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+
+    <body>
+        <style>
+            #log-container {
+                overflow: auto;
+                height: 300px;
+            }
+
+            .log-warn {
+                color: orange;
+            }
+            .log-error {
+                color: red;
+            }
+            .log-info {
+                color: skyblue;
+            }
+            .log-log {
+                color: rgb(52, 56, 65);
+            }
+
+            .log-warn,
+            .log-error {
+                font-weight: bold;
+            }
+            .eg {
+                color: #555;
+            }
+        </style>
+        <h1>Electribe UI</h1>
+        I/O: <span id="input">None</span> / <span id="output">None</span><br />
+        <input id="data" value="[240, 66, 48, 0, 1, 35, 16, 247]" />
+        <button id="send">Send Json</button> e.g. to start to playing: <span class="eg">[251,248]</span><br />
+        <input id="dataHex" />
+        <button id="sendHex">Send Hex</button> e.g. to stop: <span class="eg">f8 fc fc</span> <b>or</b> <span class="eg">0xf8 0xfc 0xfc</span> <b>or</b> <span class="eg">0xf8, 0xfc, 0xfc</span><br />
+        <select id="note"></select>
+        <button id="clear">Clear</button>
+        <div id="log-container">
+            <pre id="log"></pre>
+        </div>
+        <script src="./index.js"></script>
+    </body>
+</html>
