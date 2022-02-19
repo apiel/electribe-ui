@@ -1,0 +1,29 @@
+{
+  "name": "electribe-ui",
+  "version": "1.0.0",
+  "description": "",
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apiel/electribe-ui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apiel/electribe-ui/issues"
+  },
+  "homepage": "https://github.com/apiel/electribe-ui#readme",
+  "devDependencies": {
+    "lmdb": "^2.2.1",
+    "parcel": "^2.3.2"
+  },
+  "dependencies": {
+    "@types/webmidi": "^2.0.6",
+    "electribe-core": "^0.0.4",
+    "uninstall": "^0.0.0"
+  }
+}
