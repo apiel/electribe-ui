@@ -1,4 +1,12 @@
-import { parseMessage } from 'electribe-core';
+import { parseMessage, Part, Pattern } from 'electribe-core';
+
+// Define fake html lit-html
+// import { html } from 'lit-html';
+// https://lit.dev/docs/libraries/standalone-templates/
+// or could use /* html */
+const html = (strings: TemplateStringsArray, ...values: any[]) => {
+    return strings.flatMap((str, i) => [str, values[i] ?? '']).join('');
+};
 
 // request MIDI access
 if (navigator.requestMIDIAccess) {
@@ -63,15 +71,17 @@ function onMIDIMessage({ data }) {
     console.log({ pattern, part });
 
     document.getElementById('pattern-name').innerText = name;
-    document.getElementById('pattern-tempo').innerHTML = `<b>BPM: ${
-        tempo / 10
-    }</b> <span>Beat: ${beat} Lenght: ${length}</span>`;
+    document.getElementById('pattern-tempo').innerHTML = renderPatternTempo(
+        tempo,
+        beat,
+        length,
+    );
 
     document.getElementById('pattern-detail').innerHTML = Object.keys(pattern)
-        .map((key) => {
-            return `<div><span>${key}</span>: <span>${pattern[key]}</span></div>`;
-        })
+        .map((key) => renderPatternDetails(key, pattern[key]))
         .join('');
+
+    document.getElementById('parts').innerHTML = part.map(renderPart).join('');
 }
 
 document.getElementById('pattern-tempo').onclick = () => {
@@ -79,3 +89,23 @@ document.getElementById('pattern-tempo').onclick = () => {
     document.getElementById('pattern-detail').style.display =
         display === 'block' ? 'none' : 'block';
 };
+
+function renderPart({ name }: Part) {
+    return html`
+        <div class="part">
+            <h3>${name}</h3>
+            <div class="oscillator">
+                <h4>Oscillator</h4>
+            </div>
+        </div>
+    `;
+}
+
+function renderPatternTempo(tempo: number, beat: string, length: number) {
+    return html`<b>BPM: ${tempo / 10}</b>
+        <span>Beat: ${beat} Lenght: ${length}</span>`;
+}
+
+function renderPatternDetails(key: string, value: any) {
+    return html`<div><span>${key}</span>: <span>${value}</span></div>`;
+}

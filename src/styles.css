@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 #pattern-tempo {
@@ -8,4 +8,31 @@ body {
 
 #pattern-detail {
     display: none;
+}
+
+.part {
+    border: 1px solid #4d7ec3;
+    border-radius: 4px;
+    /* flex: 0 1 24%; */
+    min-width: 300px;
+    max-width: 400px;
+    flex-grow: 1;
+    margin: 5px;
+}
+
+.part h3 {
+    color: #213550;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    border-bottom: 1px solid #4d7ec3;
+    background-color: #c7daf5;
+    padding: 1px;
+    margin-top: 0;
+}
+
+#parts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }

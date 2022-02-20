@@ -4,6 +4,7 @@
   "description": "",
   "source": "src/index.html",
   "scripts": {
+    "dev": "parcel",
     "start": "parcel",
     "build": "parcel build"
   },
@@ -23,7 +24,7 @@
   },
   "dependencies": {
     "@types/webmidi": "^2.0.6",
-    "electribe-core": "^0.0.4",
+    "electribe-core": "^0.0.7",
     "uninstall": "^0.0.0"
   }
 }
