@@ -77,9 +77,8 @@ function onMIDIMessage({ data }) {
         length,
     );
 
-    document.getElementById('pattern-detail').innerHTML = Object.keys(pattern)
-        .map((key) => renderPatternDetails(key, pattern[key]))
-        .join('');
+    document.getElementById('pattern-detail').innerHTML =
+        renderDetails(pattern);
 
     document.getElementById('parts').innerHTML = part.map(renderPart).join('');
 }
@@ -90,12 +89,60 @@ document.getElementById('pattern-tempo').onclick = () => {
         display === 'block' ? 'none' : 'block';
 };
 
-function renderPart({ name }: Part) {
+function renderPart({
+    name,
+    oscillator,
+    filter,
+    modulation,
+    effect,
+    envelope,
+    ...rest
+}: Part) {
     return html`
         <div class="part">
             <h3>${name}</h3>
-            <div class="oscillator">
-                <h4>Oscillator</h4>
+            <div class="content">
+                <div class="oscillator">
+                    <h4>
+                        Oscillator
+                        <span
+                            >${oscillator.name.name}
+                            (${oscillator.name.type})</span
+                        >
+                    </h4>
+                    ${renderDetails(oscillator)}
+                </div>
+                <div class="filter">
+                    <h4>
+                        Filter
+                        <span>${filter.name.name} (${filter.name.type})</span>
+                    </h4>
+                    ${renderDetails(filter)}
+                </div>
+                <div class="modulation">
+                    <h4>
+                        Modulation
+                        <span
+                            title="${modulation.name.source} to ${modulation.name
+                                .destination} (bpmSync: ${modulation.name
+                                .bpmSync} keySync: ${modulation.name.keySync})"
+                            >${modulation.name.name} ⓘ</span
+                        >
+                    </h4>
+                    ${renderDetails(modulation)}
+                </div>
+                <div class="effect">
+                    <h4>Effect <span>${effect.name}</span></h4>
+                    ${renderDetails(effect)}
+                </div>
+                <div class="envelope">
+                    <h4>Envelope</h4>
+                    ${renderDetails(envelope)}
+                </div>
+                <div class="setting">
+                    <h4>Setting</h4>
+                    ${renderDetails(rest)}
+                </div>
             </div>
         </div>
     `;
@@ -106,6 +153,18 @@ function renderPatternTempo(tempo: number, beat: string, length: number) {
         <span>Beat: ${beat} Lenght: ${length}</span>`;
 }
 
-function renderPatternDetails(key: string, value: any) {
+function renderDetails(data: Object, skip = ['id', 'name']) {
+    return Object.keys(data)
+        .filter((key) => !skip.includes(key))
+        .map((key) => renderDetail(key, data[key]))
+        .join('');
+}
+
+function renderDetail(key: string, value: any) {
+    if (typeof value === 'boolean') {
+        value = value ? 'on' : 'off';
+    } else if (typeof value === 'object') {
+        // ??
+    }
     return html`<div><span>${key}</span>: <span>${value}</span></div>`;
 }

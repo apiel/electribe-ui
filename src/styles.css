@@ -20,15 +20,33 @@ body {
     margin: 5px;
 }
 
+.part .content {
+    margin: 5px;
+}
+
 .part h3 {
     color: #213550;
     text-align: center;
     font-size: 12px;
     font-weight: 600;
     border-bottom: 1px solid #4d7ec3;
-    background-color: #c7daf5;
+    background-color: #f2f6fd;
     padding: 1px;
     margin-top: 0;
+    text-transform: uppercase;
+}
+
+.part h4 {
+    margin: 10px 0 1px;
+}
+
+.part h4 span {
+    color: #555;
+    font-size: 12px;
+}
+
+.part h4 span[title] {
+    cursor: help;
 }
 
 #parts {
