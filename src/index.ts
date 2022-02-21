@@ -85,6 +85,7 @@ event.onPatternData = ({
     // https://webaudio.github.io/web-midi-api/#midioutput-interface
     // midiOutput.send(lastPatternData)
     // unfortunately, it is too big and doesnt work for the moment
+    // https://github.com/WebAudio/web-midi-api/issues/158
     (window as any).lastPatternData = data;
 
     console.log({ pattern, part });

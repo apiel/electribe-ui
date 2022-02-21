@@ -1,5 +1,6 @@
-4538
-53/home/alex/Music/electribe-ui/dist/index.4d663569.css1645297947275233998 0
+4549
+53/home/alex/Music/electribe-ui/dist/index.4d663569.css1645444350218380456 0
+57/home/alex/Music/electribe-ui/dist/index.8dbd21c7.css.map1645474022251723073 0
 52/home/alex/Music/electribe-ui/dist/index.377278e2.js1645294578738406532 0
 44/home/alex/Music/electribe-ui/src/index.html1645297893381285617 0
 33/home/alex/Music/electribe-ui/src1645295622667964215 1
@@ -55,9 +56,10 @@
 85/home/alex/Music/electribe-ui/node_modules/@parcel/core/lib/requests/ConfigRequest.js1645293613250438678 0
 68/home/alex/Music/electribe-ui/node_modules/@parcel/core/lib/requests1645293613306415006 1
 75/home/alex/Music/electribe-ui/node_modules/@parcel/core/lib/ParcelConfig.js1645293613278426842 0
-56/home/alex/Music/electribe-ui/dist/index.b71e74eb.js.map1645297898359301081 0
+56/home/alex/Music/electribe-ui/dist/index.b71e74eb.js.map1645473341795002606 0
 79/home/alex/Music/electribe-ui/node_modules/@parcel/core/lib/summarizeRequest.js1645293613290421769 0
 77/home/alex/Music/electribe-ui/node_modules/@parcel/core/lib/PackagerRunner.js1645293613274428533 0
+52/home/alex/Music/electribe-ui/dist/index.5877dc33.js1645474022247724158 0
 79/home/alex/Music/electribe-ui/node_modules/@parcel/core/lib/UncommittedAsset.js1645293613302416697 0
 73/home/alex/Music/electribe-ui/node_modules/@parcel/core/lib/Dependency.js1645293613250438678 0
 77/home/alex/Music/electribe-ui/node_modules/@parcel/core/lib/ReporterRunner.js1645293613282425151 0
@@ -82,7 +84,7 @@
 90/home/alex/Music/electribe-ui/node_modules/@parcel/core/test/fixtures/config-node-pipeline1645293613170472494 1
 89/home/alex/Music/electribe-ui/node_modules/@parcel/core/test/fixtures/parcel/package.json1645293613310413315 0
 85/home/alex/Music/electribe-ui/node_modules/@parcel/core/test/fixtures/parcel/index.js1645293613262433605 0
-47/home/alex/Music/electribe-ui/package-lock.json1645295291804119882 0
+47/home/alex/Music/electribe-ui/package-lock.json1645466037819443291 0
 94/home/alex/Music/electribe-ui/node_modules/@parcel/core/test/fixtures/custom-format-infer-type1645293613306415006 1
 77/home/alex/Music/electribe-ui/node_modules/@parcel/core/test/fixtures/plugins1645293613266431914 1
 98/home/alex/Music/electribe-ui/node_modules/@parcel/core/test/fixtures/invalid-targets/package.json1645293613310413315 0
@@ -237,7 +239,6 @@
 74/home/alex/Music/electribe-ui/node_modules/@parcel/utils/src/getRootDir.js1645293613186465730 0
 69/home/alex/Music/electribe-ui/node_modules/@parcel/utils/src/index.js1645293613250438678 0
 75/home/alex/Music/electribe-ui/node_modules/@parcel/utils/src/getExisting.js1645293613186465730 0
-69/home/alex/Music/electribe-ui/node_modules/@parcel/utils/.eslintrc.js1645293612946567109 0
 69/home/alex/Music/electribe-ui/node_modules/@parcel/utils/package.json1645293613266431914 0
 80/home/alex/Music/electribe-ui/node_modules/@parcel/utils/test/collection.test.js1645293612994546878 0
 93/home/alex/Music/electribe-ui/node_modules/@parcel/utils/test/replaceBundleReferences.test.js1645293613258435296 0
@@ -252,7 +253,6 @@
 95/home/alex/Music/electribe-ui/node_modules/@parcel/utils/test/input/sourcemap/referenced-min.js1645293613258435296 0
 76/home/alex/Music/electribe-ui/node_modules/@parcel/utils/test/config.test.js1645293613166474185 0
 61/home/alex/Music/electribe-ui/node_modules/@parcel/utils/test1645293613262433605 1
-84/home/alex/Music/electribe-ui/node_modules/@parcel/source-map/dist/SourceMap.js.flow1645293618620153793 0
 75/home/alex/Music/electribe-ui/node_modules/@parcel/source-map/dist/types.js1645293618620153793 0
 74/home/alex/Music/electribe-ui/node_modules/@parcel/source-map/dist/node.js1645293618620153793 0
 92/home/alex/Music/electribe-ui/node_modules/@parcel/source-map/dist/wasm-bindings-web.js.flow1645293618620153793 0
@@ -641,7 +641,7 @@
 97/home/alex/Music/electribe-ui/node_modules/@parcel/runtime-browser-hmr/lib/loaders/hmr-runtime.js1645293618880042555 0
 73/home/alex/Music/electribe-ui/node_modules/@types/parse-json/package.json1645293616796932896 0
 60/home/alex/Music/electribe-ui/node_modules/@types/parse-json1645293616692977200 1
-49/home/alex/Music/electribe-ui/node_modules/@types1645293989928950005 1
+49/home/alex/Music/electribe-ui/node_modules/@types1645375161256282821 1
 58/home/alex/Music/electribe-ui/node_modules/is-json/LICENSE1645293616780939712 0
 72/home/alex/Music/electribe-ui/node_modules/@parcel/utils/src/throttle.js1645293613262433605 0
 61/home/alex/Music/electribe-ui/node_modules/is-json/.npmignore1645293616605014686 0
@@ -811,24 +811,32 @@
 68/home/alex/Music/electribe-ui/node_modules/@parcel/optimizer-cssnano1645293620415383876 1
 80/home/alex/Music/electribe-ui/node_modules/abortcontroller-polyfill/package.json1645293617728535184 0
 67/home/alex/Music/electribe-ui/node_modules/abortcontroller-polyfill1645293617728535184 1
-74/home/alex/Music/electribe-ui/node_modules/electribe-core/.prettierrc.json1645295291732136520 0
+74/home/alex/Music/electribe-ui/node_modules/electribe-core/.prettierrc.json1645466037751448397 0
 84/home/alex/Music/electribe-ui/node_modules/@parcel/core/test/fixtures/custom-targets1645293613306415006 1
-69/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/osc.js1645295291732136520 0
-73/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/index.d.ts1645295291736135596 0
-79/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/electribe.js.map1645295291736135596 0
-73/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/osc.js.map1645295291736135596 0
-76/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/constant.d.ts1645295291736135596 0
-78/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/constant.js.map1645295291736135596 0
-75/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/electribe.js1645295291732136520 0
-69/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/mod.js1645295291732136520 0
-71/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/mod.d.ts1645295291740134671 0
-70/home/alex/Music/electribe-ui/node_modules/electribe-core/src/index.ts1645295291740134671 0
-73/home/alex/Music/electribe-ui/node_modules/electribe-core/src/constant.ts1645295291736135596 0
-68/home/alex/Music/electribe-ui/node_modules/electribe-core/src/mod.ts1645295291740134671 0
-75/home/alex/Music/electribe-ui/node_modules/electribe-core/example/midi.d.ts1645295291740134671 0
-74/home/alex/Music/electribe-ui/node_modules/electribe-core/example/log.json1645295291736135596 0
-62/home/alex/Music/electribe-ui/node_modules/electribe-core/test1645295291736135596 1
-57/home/alex/Music/electribe-ui/node_modules/electribe-core1645295291740134671 1
+69/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/osc.js1645466037747448698 0
+73/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/index.d.ts1645466037755448097 0
+79/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/electribe.js.map1645466037751448397 0
+73/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/osc.js.map1645466037755448097 0
+76/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/constant.d.ts1645466037755448097 0
+78/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/constant.js.map1645466037751448397 0
+75/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/electribe.js1645466037747448698 0
+69/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/mod.js1645466037747448698 0
+71/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/mod.d.ts1645466037755448097 0
+71/home/alex/Music/electribe-ui/node_modules/electribe-core/write.hex.log1645466037751448397 0
+70/home/alex/Music/electribe-ui/node_modules/electribe-core/src/index.ts1645466037755448097 0
+73/home/alex/Music/electribe-ui/node_modules/electribe-core/src/constant.ts1645466037755448097 0
+68/home/alex/Music/electribe-ui/node_modules/electribe-core/src/mod.ts1645466037755448097 0
+85/home/alex/Music/electribe-ui/node_modules/electribe-core/korg_electribe_midi_e2s.txt1645466037759447797 0
+84/home/alex/Music/electribe-ui/node_modules/electribe-core/korg_electribe_midi_e2.txt1645466037759447797 0
+75/home/alex/Music/electribe-ui/node_modules/electribe-core/example/midi.d.ts1645466037755448097 0
+84/home/alex/Music/electribe-ui/node_modules/@parcel/source-map/dist/SourceMap.js.flow1645293618620153793 0
+74/home/alex/Music/electribe-ui/node_modules/electribe-core/example/write.ts1645466037759447797 0
+74/home/alex/Music/electribe-ui/node_modules/electribe-core/example/log.json1645466037751448397 0
+75/home/alex/Music/electribe-ui/node_modules/electribe-core/example/write2.ts1645466037759447797 0
+69/home/alex/Music/electribe-ui/node_modules/@parcel/utils/.eslintrc.js1645293612946567109 0
+66/home/alex/Music/electribe-ui/node_modules/electribe-core/write.sh1645466037755448097 0
+62/home/alex/Music/electribe-ui/node_modules/electribe-core/test1645466037755448097 1
+57/home/alex/Music/electribe-ui/node_modules/electribe-core1645466037759447797 1
 60/home/alex/Music/electribe-ui/node_modules/nth-check/LICENSE1645293615045678241 0
 62/home/alex/Music/electribe-ui/node_modules/nth-check/README.md1645293615377537154 0
 65/home/alex/Music/electribe-ui/node_modules/nth-check/package.json1645293615177622146 0
@@ -896,7 +904,7 @@
 68/home/alex/Music/electribe-ui/node_modules/msgpackr/rollup.config.js1645293617368688882 0
 71/home/alex/Music/electribe-ui/node_modules/@parcel/cache/lib/types.d.ts1645293621330990232 0
 64/home/alex/Music/electribe-ui/node_modules/msgpackr/benchmark.md1645293617500632526 0
-77/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/electribe.d.ts1645295291736135596 0
+77/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/electribe.d.ts1645466037755448097 0
 64/home/alex/Music/electribe-ui/node_modules/msgpackr/package.json1645293617496634234 0
 65/home/alex/Music/electribe-ui/node_modules/lodash.memoize/LICENSE1645293615197613646 0
 67/home/alex/Music/electribe-ui/node_modules/lodash.memoize/README.md1645293615177622146 0
@@ -971,7 +979,7 @@
 70/home/alex/Music/electribe-ui/node_modules/@parcel/events/lib/index.js1645293620591308288 0
 82/home/alex/Music/electribe-ui/node_modules/type-fest/source/async-return-type.d.ts1645293613802205346 0
 80/home/alex/Music/electribe-ui/node_modules/type-fest/source/merge-exclusive.d.ts1645293614070091982 0
-75/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/index.js.map1645295291736135596 0
+75/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/index.js.map1645466037751448397 0
 74/home/alex/Music/electribe-ui/node_modules/type-fest/ts41/pascal-case.d.ts1645293614182044509 0
 62/home/alex/Music/electribe-ui/node_modules/type-fest/readme.md1645293613798207036 0
 63/home/alex/Music/electribe-ui/node_modules/type-fest/index.d.ts1645293613962137713 0
@@ -1076,7 +1084,7 @@
 74/home/alex/Music/electribe-ui/node_modules/postcss-minify-params/README.md1645293614733810534 0
 77/home/alex/Music/electribe-ui/node_modules/postcss-minify-params/package.json1645293614721815620 0
 64/home/alex/Music/electribe-ui/node_modules/postcss-minify-params1645293614721815620 1
-61/home/alex/Music/electribe-ui/node_modules/.package-lock.json1645295291812118034 0
+61/home/alex/Music/electribe-ui/node_modules/.package-lock.json1645466037831442389 0
 70/home/alex/Music/electribe-ui/node_modules/postcss-svgo/src/lib/url.js1645293614629854616 0
 67/home/alex/Music/electribe-ui/node_modules/detect-libc/package.json1645293617340700838 0
 63/home/alex/Music/electribe-ui/node_modules/postcss-svgo/src/lib1645293614565881743 1
@@ -1149,7 +1157,6 @@
 66/home/alex/Music/electribe-ui/node_modules/colord/plugins/names.js1645293617000845997 0
 69/home/alex/Music/electribe-ui/node_modules/@parcel/graph/lib/types.js1645293621043114136 0
 65/home/alex/Music/electribe-ui/node_modules/colord/plugins/mix.mjs1645293617496634234 0
-81/home/alex/Music/electribe-ui/node_modules/electribe-core/korg_electribe_midi.txt1645295291740134671 0
 67/home/alex/Music/electribe-ui/node_modules/colord/plugins/names.mjs1645293617500632526 0
 71/home/alex/Music/electribe-ui/node_modules/colord/plugins/harmonies.mjs1645293617424664974 0
 77/home/alex/Music/electribe-ui/node_modules/postcss-minify-params/src/index.js1645293614717817315 0
@@ -1161,7 +1168,7 @@
 65/home/alex/Music/electribe-ui/node_modules/colord/plugins/hwb.mjs1645293617452653020 0
 64/home/alex/Music/electribe-ui/node_modules/colord/plugins/xyz.js1645293617100803303 0
 72/home/alex/Music/electribe-ui/node_modules/colord/plugins/harmonies.d.ts1645293617524622280 0
-71/home/alex/Music/electribe-ui/node_modules/electribe-core/tsconfig.json1645295291736135596 0
+71/home/alex/Music/electribe-ui/node_modules/electribe-core/tsconfig.json1645466037751448397 0
 65/home/alex/Music/electribe-ui/node_modules/colord/plugins/cmyk.js1645293616445082843 0
 67/home/alex/Music/electribe-ui/node_modules/colord/plugins/a11y.d.ts1645293617512627403 0
 66/home/alex/Music/electribe-ui/node_modules/colord/plugins/hwb.d.ts1645293617532618864 0
@@ -1300,7 +1307,7 @@
 76/home/alex/Music/electribe-ui/node_modules/postcss-selector-parser/dist/util1645293615809353571 1
 71/home/alex/Music/electribe-ui/node_modules/postcss-selector-parser/dist1645293615773368870 1
 78/home/alex/Music/electribe-ui/node_modules/postcss-selector-parser/LICENSE-MIT1645293614465924130 0
-68/home/alex/Music/electribe-ui/node_modules/electribe-core/src/osc.ts1645295291740134671 0
+68/home/alex/Music/electribe-ui/node_modules/electribe-core/src/osc.ts1645466037759447797 0
 70/home/alex/Music/electribe-ui/node_modules/nan/nan_persistent_12_inl.h1645293617492635942 0
 95/home/alex/Music/electribe-ui/node_modules/postcss-selector-parser/postcss-selector-parser.d.ts1645293616005270276 0
 78/home/alex/Music/electribe-ui/node_modules/postcss-merge-longhand/src/index.js1645293615457503157 0
@@ -1354,7 +1361,6 @@
 71/home/alex/Music/electribe-ui/node_modules/weak-lru-cache/tests/test.js1645293612978553622 0
 76/home/alex/Music/electribe-ui/node_modules/weak-lru-cache/tests/benchmark.js1645293612958562052 0
 70/home/alex/Music/electribe-ui/node_modules/weak-lru-cache/package.json1645293612986550250 0
-57/home/alex/Music/electribe-ui/node_modules/weak-lru-cache1645293613002543507 1
 65/home/alex/Music/electribe-ui/node_modules/domhandler/lib/node.js1645293615849336573 0
 59/home/alex/Music/electribe-ui/node_modules/htmlnano/test.js1645293617620581293 0
 65/home/alex/Music/electribe-ui/node_modules/htmlnano/.eslintignore1645293616505057285 0
@@ -1368,6 +1374,7 @@
 67/home/alex/Music/electribe-ui/node_modules/xxhash-wasm/package.json1645293615677409666 0
 79/home/alex/Music/electribe-ui/node_modules/htmlnano/docs/docs/060-contribute.md1645293617900461749 0
 75/home/alex/Music/electribe-ui/node_modules/htmlnano/docs/docs/030-config.md1645293617892465165 0
+81/home/alex/Music/electribe-ui/node_modules/htmlnano/docs/docs/010-introduction.md1645293617884468580 0
 83/home/alex/Music/electribe-ui/node_modules/@parcel/core/lib/requests/PathRequest.js1645293613282425151 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/PH.js1645293618016412212 0
 86/home/alex/Music/electribe-ui/node_modules/@parcel/compressor-raw/src/RawCompressor.js1645293620955151958 0
@@ -1382,7 +1389,7 @@
 55/home/alex/Music/electribe-ui/node_modules/postcss-svgo1645293614645847833 1
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/MZ.js1645293618004417346 0
 84/home/alex/Music/electribe-ui/node_modules/lmdb/prebuilds/win32-x64/node.abi102.node1645293613334403170 0
-45/home/alex/Music/electribe-ui/dist/index.html1645298010652818338 0
+45/home/alex/Music/electribe-ui/dist/index.html1645474022247724158 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/AS.js1645293617644571047 0
 71/home/alex/Music/electribe-ui/node_modules/@swc/helpers/src/_type_of.js1645293617916454917 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/UG.js1645293618056395098 0
@@ -1659,6 +1666,7 @@
 80/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/streams.js1645293618040401944 0
 69/home/alex/Music/electribe-ui/node_modules/postcss/lib/container.d.ts1645293613242442059 0
 48/home/alex/Music/electribe-ui/node_modules/chalk1645293616832917562 1
+53/home/alex/Music/electribe-ui/dist/index.8dbd21c7.css1645474022247724158 0
 105/home/alex/Music/electribe-ui/node_modules/htmlnano/docs/versioned_docs/version-1.1.1/010-introduction.md1645293617888466872 0
 106/home/alex/Music/electribe-ui/node_modules/@parcel/core/test/fixtures/invalid-source-not-file/package.json1645293613310413315 0
 73/home/alex/Music/electribe-ui/node_modules/svgo/plugins/preset-default.js1645293615609438563 0
@@ -2120,7 +2128,7 @@
 50/home/alex/Music/electribe-ui/node_modules/timsort1645293620211471489 1
 56/home/alex/Music/electribe-ui/node_modules/nan/README.md1645293617608586417 0
 65/home/alex/Music/electribe-ui/node_modules/postcss/lib/input.d.ts1645293613246440369 0
-74/home/alex/Music/electribe-ui/node_modules/electribe-core/src/electribe.ts1645295291736135596 0
+74/home/alex/Music/electribe-ui/node_modules/electribe-core/src/electribe.ts1645466037755448097 0
 47/home/alex/Music/electribe-ui/node_modules/lmdb1645293613378384572 1
 68/home/alex/Music/electribe-ui/node_modules/minimist/test/all_bool.js1645293620707258468 0
 55/home/alex/Music/electribe-ui/node_modules/svgo/plugins1645293617044827213 1
@@ -2222,12 +2230,12 @@
 66/home/alex/Music/electribe-ui/node_modules/weak-lru-cache/index.js1645293612962560365 0
 75/home/alex/Music/electribe-ui/node_modules/postcss-ordered-values/README.md1645293615337554152 0
 54/home/alex/Music/electribe-ui/node_modules/postcss/lib1645293613250438678 1
-70/home/alex/Music/electribe-ui/node_modules/electribe-core/package.json1645295291736135596 0
+70/home/alex/Music/electribe-ui/node_modules/electribe-core/package.json1645466037751448397 0
 61/home/alex/Music/electribe-ui/node_modules/nan/doc/v8_misc.md1645293617840487366 0
 103/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/img-naturalwidth-naturalheight.js1645293617980427594 0
 80/home/alex/Music/electribe-ui/node_modules/@swc/helpers/lib/_set_prototype_of.js1645293617872473703 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/MO.js1645293618004417346 0
-71/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/osc.d.ts1645295291740134671 0
+71/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/osc.d.ts1645466037759447797 0
 67/home/alex/Music/electribe-ui/node_modules/lmdb/src/compression.cpp1645293613270430224 0
 79/home/alex/Music/electribe-ui/node_modules/@swc/helpers/src/_super_prop_base.js1645293617912456626 0
 64/home/alex/Music/electribe-ui/node_modules/@babel/code-frame/lib1645293620067533334 1
@@ -2322,7 +2330,7 @@
 67/home/alex/Music/electribe-ui/node_modules/v8-compile-cache/LICENSE1645293614074090286 0
 86/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/css-selection.js1645293617944442964 0
 64/home/alex/Music/electribe-ui/node_modules/postcss-normalize-url1645293614565881743 1
-74/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/constant.js1645295291732136520 0
+74/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/constant.js1645466037747448698 0
 82/home/alex/Music/electribe-ui/node_modules/postcss-discard-overridden/package.json1645293614825771538 0
 50/home/alex/Music/electribe-ui/node_modules/postcss1645293613242442059 1
 77/home/alex/Music/electribe-ui/node_modules/@parcel/core/src/serializerCore.js1645293613290421769 0
@@ -2375,6 +2383,7 @@
 92/home/alex/Music/electribe-ui/node_modules/@babel/helper-validator-identifier/lib/keyword.js1645293619999562532 0
 91/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/font-unicode-range.js1645293617968432717 0
 94/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/requestanimationframe.js1645293618020410499 0
+56/home/alex/Music/electribe-ui/dist/index.5877dc33.js.map1645474022251723073 0
 91/home/alex/Music/electribe-ui/node_modules/@swc/helpers/src/_is_native_reflect_construct.js1645293617908458334 0
 59/home/alex/Music/electribe-ui/node_modules/lmdb/SECURITY.md1645293613302416697 0
 75/home/alex/Music/electribe-ui/node_modules/@parcel/transformer-html/LICENSE1645293617632576170 0
@@ -2404,12 +2413,12 @@
 77/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/calc.js1645293617884468580 0
 62/home/alex/Music/electribe-ui/node_modules/terser/CHANGELOG.md1645293617832490782 0
 62/home/alex/Music/electribe-ui/node_modules/postcss/lib/rule.js1645293613238443750 0
-42/home/alex/Music/electribe-ui/node_modules1645295291744133746 1
+42/home/alex/Music/electribe-ui/node_modules1645466037767447196 1
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/FJ.js1645293617964434424 0
 87/home/alex/Music/electribe-ui/node_modules/@swc/helpers/lib/_interop_require_default.js1645293617852482243 0
 68/home/alex/Music/electribe-ui/node_modules/utility-types/SECURITY.md1645293615837341672 0
 55/home/alex/Music/electribe-ui/node_modules/lmdb/open.js1645293613294420079 0
-80/home/alex/Music/electribe-ui/node_modules/electribe-core/test/electribe.test.ts1645295291736135596 0
+80/home/alex/Music/electribe-ui/node_modules/electribe-core/test/electribe.test.ts1645466037755448097 0
 82/home/alex/Music/electribe-ui/node_modules/terser/node_modules/commander/Readme.md1645293620291437131 0
 66/home/alex/Music/electribe-ui/node_modules/postcss/lib/fromJSON.js1645293613222450513 0
 78/home/alex/Music/electribe-ui/node_modules/css-tree/lib/syntax/atrule/media.js1645293617908458334 0
@@ -2622,7 +2631,7 @@
 70/home/alex/Music/electribe-ui/node_modules/@parcel/events/lib/types.js1645293620615297980 0
 85/home/alex/Music/electribe-ui/node_modules/css-select/lib/pseudo-selectors/aliases.js1645293616237171447 0
 61/home/alex/Music/electribe-ui/node_modules/dotenv/lib/main.js1645293615953292377 0
-42/home/alex/Music/electribe-ui/src/index.ts1645297898259260537 0
+42/home/alex/Music/electribe-ui/src/index.ts1645473341706973594 0
 83/home/alex/Music/electribe-ui/node_modules/type-fest/source/conditional-except.d.ts1645293613822196891 0
 73/home/alex/Music/electribe-ui/node_modules/nanoid/non-secure/package.json1645293615813351871 0
 85/home/alex/Music/electribe-ui/node_modules/svgo/plugins/removeAttributesBySelector.js1645293615641424964 0
@@ -2686,7 +2695,7 @@
 99/home/alex/Music/electribe-ui/node_modules/@parcel/config-default/node_modules/@parcel/packager-css1645293612978553622 1
 71/home/alex/Music/electribe-ui/node_modules/cosmiconfig/dist/Explorer.js1645293616453079436 0
 92/home/alex/Music/electribe-ui/node_modules/@swc/helpers/src/_define_enumerable_properties.js1645293617900461749 0
-52/home/alex/Music/electribe-ui/dist/index.b71e74eb.js1645297898355299459 0
+52/home/alex/Music/electribe-ui/dist/index.b71e74eb.js1645473341795002606 0
 65/home/alex/Music/electribe-ui/node_modules/minimist/test/short.js1645293620819210367 0
 82/home/alex/Music/electribe-ui/node_modules/msgpackr-extract/prebuilds/darwin-arm641645293617940444672 1
 70/home/alex/Music/electribe-ui/node_modules/regenerator-runtime/LICENSE1645293614270007208 0
@@ -2742,7 +2751,7 @@
 71/home/alex/Music/electribe-ui/node_modules/csso/lib/restructure/prepare1645293617832490782 1
 93/home/alex/Music/electribe-ui/node_modules/@babel/highlight/node_modules/ansi-styles/index.js1645293620751239571 0
 78/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/touch.js1645293618052396810 0
-42/home/alex/Music/electribe-ui/package.json1645295291804119882 0
+42/home/alex/Music/electribe-ui/package.json1645466037819443291 0
 56/home/alex/Music/electribe-ui/node_modules/nan/nan_new.h1645293617452653020 0
 80/home/alex/Music/electribe-ui/node_modules/lmdb/dependencies/lz4/lib/dll/example1645293613382382881 1
 73/home/alex/Music/electribe-ui/node_modules/escape-string-regexp/readme.md1645293620751239571 0
@@ -2875,6 +2884,7 @@
 90/home/alex/Music/electribe-ui/node_modules/@parcel/optimizer-terser/lib/TerserOptimizer.js1645293619779656844 0
 66/home/alex/Music/electribe-ui/node_modules/colord/plugins/xyz.d.ts1645293617628577878 0
 69/home/alex/Music/electribe-ui/node_modules/utility-types/CHANGELOG.md1645293615797358671 0
+67/home/alex/Music/electribe-ui/node_modules/electribe-core/write.log1645466037751448397 0
 81/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/lazyload.js1645293617992422469 0
 111/home/alex/Music/electribe-ui/node_modules/@parcel/node-resolver-core/test/fixture/node_modules/package-browser1645293621063105531 1
 70/home/alex/Music/electribe-ui/node_modules/colord/plugins/harmonies.js1645293616473070916 0
@@ -2894,8 +2904,6 @@
 72/home/alex/Music/electribe-ui/node_modules/msgpackr-extract/package.json1645293616585023206 0
 72/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/browsers.js1645293617876471996 0
 80/home/alex/Music/electribe-ui/node_modules/utility-types/dist/utility-types.d.ts1645293615985278778 0
-69/home/alex/Music/electribe-ui/node_modules/colord/plugins/minify.d.ts1645293617584596663 0
-74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/SV.js1645293618040401944 0
 78/home/alex/Music/electribe-ui/node_modules/svgo/plugins/removeScriptElement.js1645293616101229382 0
 57/home/alex/Music/electribe-ui/node_modules/@parcel/plugin1645293618908030575 1
 88/home/alex/Music/electribe-ui/node_modules/css-select/lib/pseudo-selectors/subselects.js1645293617148782811 0
@@ -2958,6 +2966,8 @@
 65/home/alex/Music/electribe-ui/node_modules/colord/plugins/lch.mjs1645293617492635942 0
 64/home/alex/Music/electribe-ui/node_modules/lodash.uniq/README.md1645293620499347799 0
 62/home/alex/Music/electribe-ui/node_modules/lodash.uniq/LICENSE1645293620507344364 0
+57/home/alex/Music/electribe-ui/node_modules/weak-lru-cache1645293613002543507 1
+47/home/alex/Music/electribe-ui/node_modules/@lit1645375161328280234 1
 105/home/alex/Music/electribe-ui/node_modules/@parcel/core/test/fixtures/custom-targets-distdir/package.json1645293613306415006 0
 51/home/alex/Music/electribe-ui/node_modules/error-ex1645293615733385868 1
 92/home/alex/Music/electribe-ui/node_modules/lmdb/dependencies/lmdb/libraries/liblmdb/mtest4.c1645293613266431914 0
@@ -3083,7 +3093,7 @@
 71/home/alex/Music/electribe-ui/node_modules/postcss/lib/stringifier.d.ts1645293613250438678 0
 59/home/alex/Music/electribe-ui/node_modules/lmdb/src/dbi.cpp1645293613274428533 0
 78/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/alt-eu.js1645293617516625695 0
-34/home/alex/Music/electribe-ui/dist1645298010656815271 1
+34/home/alex/Music/electribe-ui/dist1645474022251723073 1
 73/home/alex/Music/electribe-ui/node_modules/postcss-ordered-values/src/lib1645293615109651043 1
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/AD.js1645293617212755486 0
 102/home/alex/Music/electribe-ui/node_modules/lmdb/dependencies/lmdb-data-v1/libraries/liblmdb/mdb_drop.c1645293613242442059 0
@@ -3097,7 +3107,7 @@
 86/home/alex/Music/electribe-ui/node_modules/postcss-ordered-values/src/rules/columns.js1645293614885746105 0
 78/home/alex/Music/electribe-ui/node_modules/terser/lib/compress/tighten-body.js1645293617816497613 0
 63/home/alex/Music/electribe-ui/node_modules/postcss-calc/LICENSE1645293614821773233 0
-72/home/alex/Music/electribe-ui/node_modules/electribe-core/jest.config.js1645295291732136520 0
+72/home/alex/Music/electribe-ui/node_modules/electribe-core/jest.config.js1645466037747448698 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/VN.js1645293618056395098 0
 61/home/alex/Music/electribe-ui/node_modules/clone/package.json1645293616453079436 0
 81/home/alex/Music/electribe-ui/node_modules/caniuse-lite/dist/unpacker/features.js1645293617964434424 0
@@ -3119,7 +3129,7 @@
 80/home/alex/Music/electribe-ui/node_modules/postcss-minify-gradients/package.json1645293614773793578 0
 91/home/alex/Music/electribe-ui/node_modules/source-map-support/browser-source-map-support.js1645293614317986862 0
 54/home/alex/Music/electribe-ui/node_modules/.bin/parcel1645293748202320984 0
-71/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/index.js1645295291732136520 0
+71/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/index.js1645466037747448698 0
 81/home/alex/Music/electribe-ui/node_modules/css-tree/lib/syntax/atrule/supports.js1645293617924451503 0
 64/home/alex/Music/electribe-ui/node_modules/@parcel/hash/index.js1645293620955151958 0
 65/home/alex/Music/electribe-ui/node_modules/@parcel/compressor-raw1645293620955151958 1
@@ -3191,7 +3201,7 @@
 100/home/alex/Music/electribe-ui/node_modules/terser/node_modules/source-map/lib/source-map-consumer.js1645293620431377004 0
 80/home/alex/Music/electribe-ui/node_modules/csso/lib/restructure/1-mergeAtrule.js1645293615945295777 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/DE.js1645293617956437840 0
-73/home/alex/Music/electribe-ui/node_modules/electribe-core/example/main.ts1645295291740134671 0
+73/home/alex/Music/electribe-ui/node_modules/electribe-core/example/main.ts1645466037755448097 0
 91/home/alex/Music/electribe-ui/node_modules/terser/node_modules/commander/typings/index.d.ts1645293620291437131 0
 77/home/alex/Music/electribe-ui/node_modules/@parcel/packager-js/src/helpers.js1645293618872045978 0
 81/home/alex/Music/electribe-ui/node_modules/postcss-selector-parser/dist/parser.js1645293615369540553 0
@@ -3237,6 +3247,8 @@
 69/home/alex/Music/electribe-ui/node_modules/@parcel/graph/lib/index.js1645293621039115858 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/ML.js1645293618004417346 0
 78/home/alex/Music/electribe-ui/node_modules/css-tree/lib/syntax/atrule/index.js1645293617896463457 0
+69/home/alex/Music/electribe-ui/node_modules/colord/plugins/minify.d.ts1645293617584596663 0
+74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/SV.js1645293618040401944 0
 60/home/alex/Music/electribe-ui/node_modules/nanoid/non-secure1645293615945295777 1
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/PW.js1645293618020410499 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/LS.js1645293617992422469 0
@@ -3299,7 +3311,7 @@
 73/home/alex/Music/electribe-ui/node_modules/type-fest/ts41/kebab-case.d.ts1645293614014115718 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/NE.js1645293618012413923 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/HT.js1645293617976429301 0
-57/home/alex/Music/electribe-ui/dist/index.4d663569.css.map1645297947275233998 0
+57/home/alex/Music/electribe-ui/dist/index.4d663569.css.map1645444350218380456 0
 90/home/alex/Music/electribe-ui/node_modules/@parcel/transformer-html/lib/HTMLTransformer.js1645293617728535184 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/MU.js1645293618004417346 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/VA.js1645293618056395098 0
@@ -3364,7 +3376,6 @@
 84/home/alex/Music/electribe-ui/node_modules/css-tree/lib/syntax/pseudo/nth-of-type.js1645293617912456626 0
 88/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/css-text-indent.js1645293617944442964 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/MG.js1645293618000419057 0
-81/home/alex/Music/electribe-ui/node_modules/htmlnano/docs/docs/010-introduction.md1645293617884468580 0
 72/home/alex/Music/electribe-ui/node_modules/@swc/helpers/src/_inherits.js1645293617904460040 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/MR.js1645293618004417346 0
 78/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/alt-sa.js1645293617532618864 0
@@ -3746,7 +3757,7 @@
 90/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/css-marker-pseudo.js1645293617932448086 0
 89/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/link-rel-preload.js1645293617992422469 0
 69/home/alex/Music/electribe-ui/node_modules/node-addon-api/common.gypi1645293615097656143 0
-44/home/alex/Music/electribe-ui/src/styles.css1645297947187198004 0
+44/home/alex/Music/electribe-ui/src/styles.css1645444350146380216 0
 65/home/alex/Music/electribe-ui/node_modules/cssesc/LICENSE-MIT.txt1645293615969285578 0
 62/home/alex/Music/electribe-ui/node_modules/.bin/node-gyp-build1645293748202320984 0
 79/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/webvtt.js1645293618060393386 0
@@ -3895,7 +3906,7 @@
 96/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/intersectionobserver-v2.js1645293617984425886 0
 87/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/array-includes.js1645293617636574461 0
 81/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/jpeg2000.js1645293617984425886 0
-63/home/alex/Music/electribe-ui/node_modules/electribe-core/yo.js1645295291732136520 0
+63/home/alex/Music/electribe-ui/node_modules/electribe-core/yo.js1645466037751448397 0
 82/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/clipboard.js1645293617892465165 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/TJ.js1645293618052396810 0
 87/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/css-gencontent.js1645293617924451503 0
@@ -3940,7 +3951,7 @@
 62/home/alex/Music/electribe-ui/node_modules/postcss/lib/node.js1645293613234445441 0
 91/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/picture-in-picture.js1645293618016412212 0
 81/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/minmaxwh.js1645293618000419057 0
-65/home/alex/Music/electribe-ui/node_modules/electribe-core/example1645295291740134671 1
+65/home/alex/Music/electribe-ui/node_modules/electribe-core/example1645466037759447797 1
 85/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/magnetometer.js1645293617996420763 0
 80/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/rellist.js1645293618020410499 0
 93/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/js-regexp-lookbehind.js1645293617988424178 0
@@ -4177,7 +4188,7 @@
 51/home/alex/Music/electribe-ui/node_modules/css-tree1645293617936446380 1
 70/home/alex/Music/electribe-ui/node_modules/css-select/lib/general.d.ts1645293617512627403 0
 82/home/alex/Music/electribe-ui/node_modules/css-tree/lib/definition-syntax/parse.js1645293617916454917 0
-62/home/alex/Music/electribe-ui/node_modules/electribe-core/dist1645295291740134671 1
+62/home/alex/Music/electribe-ui/node_modules/electribe-core/dist1645466037759447797 1
 81/home/alex/Music/electribe-ui/node_modules/css-tree/lib/definition-syntax/walk.js1645293617932448086 0
 85/home/alex/Music/electribe-ui/node_modules/css-tree/lib/definition-syntax/generate.js1645293617884468580 0
 64/home/alex/Music/electribe-ui/node_modules/css-tree/lib/index.js1645293617896463457 0
@@ -4307,7 +4318,7 @@
 58/home/alex/Music/electribe-ui/node_modules/clone/clone.iml1645293616848910746 0
 57/home/alex/Music/electribe-ui/node_modules/clone/clone.js1645293616676984015 0
 70/home/alex/Music/electribe-ui/node_modules/postcss-normalize-positions1645293614717817315 1
-61/home/alex/Music/electribe-ui/node_modules/electribe-core/src1645295291740134671 1
+61/home/alex/Music/electribe-ui/node_modules/electribe-core/src1645466037759447797 1
 82/home/alex/Music/electribe-ui/node_modules/postcss-normalize-positions/LICENSE-MIT1645293614657842747 0
 74/home/alex/Music/electribe-ui/node_modules/postcss-normalize-positions/src1645293614677834270 1
 78/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/video.js1645293618056395098 0
@@ -4459,7 +4470,7 @@
 90/home/alex/Music/electribe-ui/node_modules/entities/lib/generated/decode-data-xml.d.ts.map1645293617424664974 0
 64/home/alex/Music/electribe-ui/node_modules/normalize-url/license1645293614913734237 0
 83/home/alex/Music/electribe-ui/node_modules/@parcel/watcher/src/windows/win_utils.cc1645293617824494197 0
-73/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/mod.js.map1645295291736135596 0
+73/home/alex/Music/electribe-ui/node_modules/electribe-core/dist/mod.js.map1645466037755448097 0
 76/home/alex/Music/electribe-ui/node_modules/source-map/dist/source-map.min.js1645293620691265340 0
 75/home/alex/Music/electribe-ui/node_modules/postcss-reduce-initial/README.md1645293614685830879 0
 85/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/css-counters.js1645293617916454917 0
@@ -4496,7 +4507,7 @@
 84/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/features/css-nesting.js1645293617936446380 0
 74/home/alex/Music/electribe-ui/node_modules/caniuse-lite/data/regions/KE.js1645293617988424178 0
 63/home/alex/Music/electribe-ui/node_modules/htmlnano/lib/modules1645293617600589832 1
-71/home/alex/Music/electribe-ui/node_modules/electribe-core/test/214.json1645295291736135596 0
+71/home/alex/Music/electribe-ui/node_modules/electribe-core/test/214.json1645466037751448397 0
 73/home/alex/Music/electribe-ui/node_modules/htmlnano/lib/modules/custom.js1645293617220752071 0
 85/home/alex/Music/electribe-ui/node_modules/htmlnano/lib/modules/removeOptionalTags.js1645293617524622280 0
 70/home/alex/Music/electribe-ui/node_modules/dom-serializer/node_modules1645293612430784582 1
