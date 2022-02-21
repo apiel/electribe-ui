@@ -1,4 +1,4 @@
-import { parseMessage, Part, Pattern } from 'electribe-core';
+import { event, parseMessage, Part, Pattern } from 'electribe-core';
 
 // Define fake html lit-html
 // import { html } from 'lit-html';
@@ -64,10 +64,12 @@ function onMIDIMessage({ data }) {
         return;
     }
 
-    const {
-        pattern: { name, tempo, beat, length, part, ...pattern },
-    } = parseMessage(data);
+    parseMessage(data);
+}
 
+event.onPatternData = ({
+    pattern: { name, tempo, beat, length, part, ...pattern },
+}) => {
     console.log({ pattern, part });
 
     document.getElementById('pattern-name').innerText = name;
@@ -81,7 +83,7 @@ function onMIDIMessage({ data }) {
         renderDetails(pattern);
 
     document.getElementById('parts').innerHTML = part.map(renderPart).join('');
-}
+};
 
 document.getElementById('pattern-tempo').onclick = () => {
     const display = document.getElementById('pattern-detail').style.display;
@@ -123,8 +125,8 @@ function renderPart({
                     <h4>
                         Modulation
                         <span
-                            title="${modulation.name.source} to ${modulation.name
-                                .destination} (bpmSync: ${modulation.name
+                            title="${modulation.name.source} to ${modulation
+                                .name.destination} (bpmSync: ${modulation.name
                                 .bpmSync} keySync: ${modulation.name.keySync})"
                             >${modulation.name.name} ⓘ</span
                         >
