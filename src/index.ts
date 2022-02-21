@@ -34,6 +34,10 @@ function onMIDISuccess(midiAccess) {
     const midiInput = findElectribe2(midi.inputs);
     midiOutput = findElectribe2(midi.outputs);
 
+    // for testing purpose
+    (window as any).midi = midi;
+    (window as any).midiOutput = midiOutput;
+
     if (!midiInput || !midiOutput) {
         alert(
             'Could not find electribe 2, check if device is properly connect.',
@@ -67,9 +71,22 @@ function onMIDIMessage({ data }) {
     parseMessage(data);
 }
 
+event.onMidiData = ({ data }) => console.log('MIDI data', data);
+
+event.onError = ({ type }) => console.error('Error', type);
+
+event.onWriteDone = () => console.log('Write done successfully.');
+
 event.onPatternData = ({
     pattern: { name, tempo, beat, length, part, ...pattern },
+    data,
 }) => {
+    // For testing purpose
+    // https://webaudio.github.io/web-midi-api/#midioutput-interface
+    // midiOutput.send(lastPatternData)
+    // unfortunately, it is too big and doesnt work for the moment
+    (window as any).lastPatternData = data;
+
     console.log({ pattern, part });
 
     document.getElementById('pattern-name').innerText = name;

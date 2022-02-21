@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@types/webmidi": "^2.0.6",
-    "electribe-core": "^0.0.7",
+    "electribe-core": "^0.0.8",
     "uninstall": "^0.0.0"
   }
 }
