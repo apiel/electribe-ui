@@ -104,7 +104,7 @@ function renderPart({
             <div class="content">
                 <div class="oscillator">
                     <h4>
-                        Oscillator
+                        Osc
                         <span
                             >${oscillator.name.name}
                             (${oscillator.name.type})</span
