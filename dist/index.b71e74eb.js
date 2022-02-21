@@ -592,9 +592,11 @@ _electribeCore.event.onPatternData = ({ pattern: { name , tempo , beat , length 
     // unfortunately, it is too big and doesnt work for the moment
     // https://github.com/WebAudio/web-midi-api/issues/158
     window.lastPatternData = data;
-    setTimeout(()=>{
+    document.getElementById('test').onclick = ()=>{
+        alert('try to send pattern');
         midiOutput.send(data);
-    }, 3000);
+        alert('Pattern sent');
+    };
     console.log({
         pattern,
         part

@@ -88,9 +88,11 @@ event.onPatternData = ({
     // https://github.com/WebAudio/web-midi-api/issues/158
     (window as any).lastPatternData = data;
 
-    setTimeout(() => {
+    document.getElementById('test').onclick = () => {
+        alert('try to send pattern');
         midiOutput.send(data);
-    }, 3000);
+        alert('Pattern sent');
+    };
 
     console.log({ pattern, part });
 
