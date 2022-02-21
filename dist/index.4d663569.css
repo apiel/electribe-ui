@@ -1,0 +1,79 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+#pattern-tempo {
+    cursor: pointer;
+}
+
+#pattern-detail {
+    display: none;
+}
+
+#parts {
+    --grid-cols: 1;
+    display: grid;
+    grid-template-columns: repeat(var(--grid-cols), 1fr);
+    column-gap: 5px;
+    row-gap: 5px;
+}
+
+@media (min-width: 400px) {
+    #parts {
+        --grid-cols: 2;
+    }
+}
+
+@media (min-width: 800px) {
+    #parts {
+        --grid-cols: 4;
+    }
+}
+
+@media (min-width: 1800px) {
+    #parts {
+        --grid-cols: 8;
+    }
+}
+
+@media (min-width: 3600px) {
+    #parts {
+        --grid-cols: 16;
+    }
+}
+
+.part {
+    border: 1px solid #4d7ec3;
+    border-radius: 4px;
+}
+
+.part .content {
+    margin: 5px;
+}
+
+.part h3 {
+    color: #213550;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 600;
+    border-bottom: 1px solid #4d7ec3;
+    background-color: #f2f6fd;
+    padding: 1px;
+    margin-top: 0;
+    text-transform: uppercase;
+}
+
+.part h4 {
+    margin: 10px 0 1px;
+}
+
+.part h4 span {
+    color: #555;
+    font-size: 12px;
+}
+
+.part h4 span[title] {
+    cursor: help;
+}
+
+/*# sourceMappingURL=index.4d663569.css.map */
