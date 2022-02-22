@@ -1,7 +1,7 @@
 import { event, parseMessage, Part } from 'electribe-core';
 import { elByClass, elById, evEach, forEachClass } from './dom';
 
-import './setting'
+import './setting';
 
 // Define fake html lit-html
 // import { html } from 'lit-html';
@@ -47,8 +47,10 @@ function onMIDISuccess(midiAccess) {
         );
     } else {
         midiInput.onmidimessage = onMIDIMessage;
-        elById('input').innerHTML = midiInput.name;
-        elById('output').innerHTML = midiOutput.name;
+        elById('io').innerHTML =
+            midiInput.name === midiOutput.name
+                ? midiOutput.name
+                : `${midiInput.name} / ${midiOutput.name}`;
 
         queryCurrentPattern();
     }
