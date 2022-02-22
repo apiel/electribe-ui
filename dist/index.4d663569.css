@@ -18,7 +18,7 @@ body {
     row-gap: 5px;
 }
 
-@media (min-width: 400px) {
+@media (min-width: 350px) {
     #parts {
         --grid-cols: 2;
     }
@@ -74,6 +74,20 @@ body {
 
 .part h4 span[title] {
     cursor: help;
+}
+
+.topBtn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #8a9ebb;
+    cursor: pointer;
+}
+
+#settingView {
+    display: none;
 }
 
 /*# sourceMappingURL=index.4d663569.css.map */

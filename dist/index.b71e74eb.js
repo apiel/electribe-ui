@@ -520,6 +520,7 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"h7u1C":[function(require,module,exports) {
 var _electribeCore = require("electribe-core");
+var _dom = require("./dom");
 // Define fake html lit-html
 // import { html } from 'lit-html';
 // https://lit.dev/docs/libraries/standalone-templates/
@@ -554,8 +555,8 @@ function onMIDISuccess(midiAccess) {
     if (!midiInput || !midiOutput) alert('Could not find electribe 2, check if device is properly connect.');
     else {
         midiInput.onmidimessage = onMIDIMessage;
-        document.getElementById('input').innerHTML = midiInput.name;
-        document.getElementById('output').innerHTML = midiOutput.name;
+        _dom.elById('input').innerHTML = midiInput.name;
+        _dom.elById('output').innerHTML = midiOutput.name;
         queryCurrentPattern();
     }
 }
@@ -592,8 +593,7 @@ _electribeCore.event.onPatternData = ({ pattern: { name , tempo , beat , length 
     // unfortunately, it is too big and doesnt work for the moment
     // https://github.com/WebAudio/web-midi-api/issues/158
     window.lastPatternData = data;
-    document.getElementById('test').onclick = ()=>{
-        alert('try to send pattern');
+    _dom.elById('send').onclick = ()=>{
         midiOutput.send(data);
         alert('Pattern sent');
     };
@@ -601,15 +601,20 @@ _electribeCore.event.onPatternData = ({ pattern: { name , tempo , beat , length 
         pattern,
         part
     });
-    document.getElementById('pattern-name').innerText = name;
-    document.getElementById('pattern-tempo').innerHTML = renderPatternTempo(tempo, beat, length);
-    document.getElementById('pattern-detail').innerHTML = renderDetails(pattern);
-    document.getElementById('parts').innerHTML = part.map(renderPart).join('');
+    _dom.elById('pattern-name').innerText = name;
+    _dom.elById('pattern-tempo').innerHTML = renderPatternTempo(tempo, beat, length);
+    _dom.elById('pattern-detail').innerHTML = renderDetails(pattern);
+    _dom.elById('parts').innerHTML = part.map(renderPart).join('');
 };
-document.getElementById('pattern-tempo').onclick = ()=>{
-    const display = document.getElementById('pattern-detail').style.display;
-    document.getElementById('pattern-detail').style.display = display === 'block' ? 'none' : 'block';
+_dom.elById('pattern-tempo').onclick = ()=>{
+    const display = _dom.elById('pattern-detail').style.display;
+    _dom.elById('pattern-detail').style.display = display === 'block' ? 'none' : 'block';
 };
+_dom.evEach(_dom.elByClass('topBtn'), 'click', (event)=>{
+    Array.from(_dom.elByClass('view')).forEach((el)=>el.style.display = 'none'
+    );
+    _dom.elById(event.target.dataset.view).style.display = 'block';
+});
 function renderPart({ name , oscillator , filter , modulation , effect , envelope , ...rest }) {
     return html`
         <div class="part">
@@ -676,7 +681,7 @@ function renderDetail(key, value) {
     return html`<div><span>${key}</span>: <span>${value}</span></div>`;
 }
 
-},{"electribe-core":"6gcYi"}],"6gcYi":[function(require,module,exports) {
+},{"electribe-core":"6gcYi","./dom":"4c0m4"}],"6gcYi":[function(require,module,exports) {
 "use strict";
 var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -3418,6 +3423,122 @@ function parsePart(data, partId) {
     return part;
 }
 
-},{"./constant":"1FZLF","./osc":"4Uasb","./mod":"gIlIH",".":"6gcYi"}]},["8wcER","h7u1C"], "h7u1C", "parcelRequire4c4a")
+},{"./constant":"1FZLF","./osc":"4Uasb","./mod":"gIlIH",".":"6gcYi"}],"4c0m4":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+// export function evNumVal(fn: (val: number) => void) {
+//     return evStrVal((val) => fn(Number(val)));
+// }
+// export function evStrVal(fn: (val: string) => void) {
+//     return ({ target }: Event) => {
+//         fn((target as HTMLInputElement).value);
+//     };
+// }
+parcelHelpers.export(exports, "evEach", ()=>evEach
+);
+// export function applyToChild(
+//     parent: HTMLElement,
+//     fn: (el: HTMLElement, index?: number) => void,
+// ) {
+//     return parent.childNodes.forEach((el, index) =>
+//         fn(el as HTMLElement, index),
+//     );
+// }
+// export function toggleChildClass(parent: HTMLElement, classname: string) {
+//     return applyToChild(parent, (el) => el.classList.toggle(classname));
+// }
+// export function addChildClass(parent: HTMLElement, classname: string) {
+//     return applyToChild(parent, (el) => el.classList.add(classname));
+// }
+// export function removeChildClass(parent: HTMLElement, classname: string) {
+//     return applyToChild(parent, (el) => el.classList.remove(classname));
+// }
+// export function toggleSiblingClass(el: HTMLElement, classname: string) {
+//     if (el.classList.contains(classname)) {
+//         addChildClass(el.parentElement, classname);
+//         el.classList.remove(classname);
+//     } else {
+//         removeChildClass(el.parentElement, classname);
+//         el.classList.add(classname);
+//     }
+// }
+// export function setClass(el: HTMLElement, classname: string, value: boolean) {
+//     if (value) {
+//         el.classList.add(classname);
+//     } else {
+//         el.classList.remove(classname);
+//     }
+// }
+// export function toggleAttr(
+//     el: HTMLElement,
+//     name: string,
+//     val1: string,
+//     val2: string,
+// ) {
+//     if (el.getAttribute(name) === val1) {
+//         el.setAttribute(name, val2);
+//     } else {
+//         el.setAttribute(name, val1);
+//     }
+// }
+parcelHelpers.export(exports, "inputById", ()=>inputById
+);
+parcelHelpers.export(exports, "elById", ()=>elById
+);
+parcelHelpers.export(exports, "elByClass", ()=>elByClass
+) // export function elFromHtml(html: string) {
+ //     var template = document.createElement('template');
+ //     template.innerHTML = html.trim();
+ //     return template.content.firstChild as HTMLElement;
+ // }
+ // export function join(classnames: string[]) {
+ //     return classnames.filter((f) => f).join(' ');
+ // }
+;
+function evEach(elements, type, listener) {
+    Array.from(elements).forEach((el)=>el.addEventListener(type, listener)
+    );
+}
+function inputById(id) {
+    return elById(id);
+}
+function elById(id) {
+    return document.getElementById(id);
+}
+function elByClass(classname) {
+    return document.getElementsByClassName(classname);
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule' || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}]},["8wcER","h7u1C"], "h7u1C", "parcelRequire4c4a")
 
 //# sourceMappingURL=index.b71e74eb.js.map

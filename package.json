@@ -4,8 +4,8 @@
   "description": "",
   "source": "src/index.html",
   "scripts": {
-    "write:serve": "node writeServer.js",
     "dev": "parcel",
+    "dev:https": "parcel --https",
     "start": "parcel",
     "build": "parcel build --public-url '.'"
   },

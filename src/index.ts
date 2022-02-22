@@ -1,4 +1,5 @@
-import { event, parseMessage, Part, Pattern } from 'electribe-core';
+import { event, parseMessage, Part } from 'electribe-core';
+import { elByClass, elById, evEach } from './dom';
 
 // Define fake html lit-html
 // import { html } from 'lit-html';
@@ -44,8 +45,8 @@ function onMIDISuccess(midiAccess) {
         );
     } else {
         midiInput.onmidimessage = onMIDIMessage;
-        document.getElementById('input').innerHTML = midiInput.name;
-        document.getElementById('output').innerHTML = midiOutput.name;
+        elById('input').innerHTML = midiInput.name;
+        elById('output').innerHTML = midiOutput.name;
 
         queryCurrentPattern();
     }
@@ -87,33 +88,33 @@ event.onPatternData = ({
     // unfortunately, it is too big and doesnt work for the moment
     // https://github.com/WebAudio/web-midi-api/issues/158
     (window as any).lastPatternData = data;
-
-    document.getElementById('test').onclick = () => {
-        alert('try to send pattern');
+    elById('send').onclick = () => {
         midiOutput.send(data);
         alert('Pattern sent');
     };
 
     console.log({ pattern, part });
 
-    document.getElementById('pattern-name').innerText = name;
-    document.getElementById('pattern-tempo').innerHTML = renderPatternTempo(
-        tempo,
-        beat,
-        length,
-    );
+    elById('pattern-name').innerText = name;
+    elById('pattern-tempo').innerHTML = renderPatternTempo(tempo, beat, length);
 
-    document.getElementById('pattern-detail').innerHTML =
-        renderDetails(pattern);
+    elById('pattern-detail').innerHTML = renderDetails(pattern);
 
-    document.getElementById('parts').innerHTML = part.map(renderPart).join('');
+    elById('parts').innerHTML = part.map(renderPart).join('');
 };
 
-document.getElementById('pattern-tempo').onclick = () => {
-    const display = document.getElementById('pattern-detail').style.display;
-    document.getElementById('pattern-detail').style.display =
+elById('pattern-tempo').onclick = () => {
+    const display = elById('pattern-detail').style.display;
+    elById('pattern-detail').style.display =
         display === 'block' ? 'none' : 'block';
 };
+
+evEach(elByClass('topBtn'), 'click', (event) => {
+    Array.from(elByClass('view')).forEach(
+        (el) => ((<HTMLElement>el).style.display = 'none'),
+    );
+    elById((<HTMLElement>event.target).dataset.view).style.display = 'block';
+});
 
 function renderPart({
     name,
