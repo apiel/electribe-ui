@@ -611,7 +611,7 @@ _dom.elById('pattern-tempo').onclick = ()=>{
     _dom.elById('pattern-detail').style.display = display === 'block' ? 'none' : 'block';
 };
 _dom.evEach(_dom.elByClass('topBtn'), 'click', (event)=>{
-    Array.from(_dom.elByClass('view')).forEach((el)=>el.style.display = 'none'
+    _dom.forEachClass('view', (el)=>el.style.display = 'none'
     );
     _dom.elById(event.target.dataset.view).style.display = 'block';
 });
@@ -3481,6 +3481,10 @@ parcelHelpers.export(exports, "evEach", ()=>evEach
 //         el.setAttribute(name, val1);
 //     }
 // }
+parcelHelpers.export(exports, "forEachEl", ()=>forEachEl
+);
+parcelHelpers.export(exports, "forEachClass", ()=>forEachClass
+);
 parcelHelpers.export(exports, "inputById", ()=>inputById
 );
 parcelHelpers.export(exports, "elById", ()=>elById
@@ -3498,6 +3502,14 @@ parcelHelpers.export(exports, "elByClass", ()=>elByClass
 function evEach(elements, type, listener) {
     Array.from(elements).forEach((el)=>el.addEventListener(type, listener)
     );
+}
+function forEachEl(elements, fn) {
+    // this could be forEachEl
+    Array.from(elements).forEach((el, index)=>fn(el, index)
+    );
+}
+function forEachClass(classname, fn) {
+    forEachEl(elByClass(classname), fn);
 }
 function inputById(id) {
     return elById(id);

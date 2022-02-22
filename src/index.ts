@@ -1,5 +1,5 @@
 import { event, parseMessage, Part } from 'electribe-core';
-import { elByClass, elById, evEach } from './dom';
+import { elByClass, elById, evEach, forEachClass } from './dom';
 
 // Define fake html lit-html
 // import { html } from 'lit-html';
@@ -110,9 +110,7 @@ elById('pattern-tempo').onclick = () => {
 };
 
 evEach(elByClass('topBtn'), 'click', (event) => {
-    Array.from(elByClass('view')).forEach(
-        (el) => ((<HTMLElement>el).style.display = 'none'),
-    );
+    forEachClass('view', (el) => ((<HTMLElement>el).style.display = 'none'));
     elById((<HTMLElement>event.target).dataset.view).style.display = 'block';
 });
 

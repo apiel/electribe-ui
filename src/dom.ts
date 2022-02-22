@@ -68,6 +68,21 @@ export function evEach(
 //     }
 // }
 
+export function forEachEl(
+    elements: HTMLCollectionOf<Element>,
+    fn: (el: HTMLElement, index?: number) => void,
+) {
+    // this could be forEachEl
+    Array.from(elements).forEach((el, index) => fn(el as HTMLElement, index));
+}
+
+export function forEachClass(
+    classname: string,
+    fn: (el: HTMLElement, index?: number) => void,
+) {
+    forEachEl(elByClass(classname), fn);
+}
+
 export function inputById(id: string) {
     return elById(id) as HTMLInputElement;
 }
