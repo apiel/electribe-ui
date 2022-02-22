@@ -2,11 +2,11 @@
 //     return evStrVal((val) => fn(Number(val)));
 // }
 
-// export function evStrVal(fn: (val: string) => void) {
-//     return ({ target }: Event) => {
-//         fn((target as HTMLInputElement).value);
-//     };
-// }
+export function evStrVal(fn: (val: string) => void) {
+    return ({ target }: Event) => {
+        fn((target as HTMLInputElement).value);
+    };
+}
 
 export function evEach(
     elements: HTMLCollectionOf<Element>,

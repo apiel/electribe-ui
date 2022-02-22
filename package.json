@@ -20,10 +20,14 @@
   },
   "homepage": "https://github.com/apiel/electribe-ui#readme",
   "devDependencies": {
+    "@types/node": "^17.0.19",
+    "buffer": "^6.0.3",
     "express": "^4.17.3",
     "lmdb": "^2.2.1",
     "parcel": "^2.3.2",
-    "posthtml-include": "^1.7.2"
+    "path-browserify": "^1.0.1",
+    "posthtml-include": "^1.7.2",
+    "process": "^0.11.10"
   },
   "dependencies": {
     "@types/webmidi": "^2.0.6",

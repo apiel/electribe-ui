@@ -1,6 +1,8 @@
 import { event, parseMessage, Part } from 'electribe-core';
 import { elByClass, elById, evEach, forEachClass } from './dom';
 
+import './setting'
+
 // Define fake html lit-html
 // import { html } from 'lit-html';
 // https://lit.dev/docs/libraries/standalone-templates/
