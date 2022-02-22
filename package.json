@@ -4,6 +4,7 @@
   "description": "",
   "source": "src/index.html",
   "scripts": {
+    "write:serve": "node writeServer.js",
     "dev": "parcel",
     "start": "parcel",
     "build": "parcel build --public-url '.'"
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/apiel/electribe-ui#readme",
   "devDependencies": {
+    "express": "^4.17.3",
     "lmdb": "^2.2.1",
     "parcel": "^2.3.2"
   },
