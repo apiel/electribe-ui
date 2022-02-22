@@ -22,7 +22,8 @@
   "devDependencies": {
     "express": "^4.17.3",
     "lmdb": "^2.2.1",
-    "parcel": "^2.3.2"
+    "parcel": "^2.3.2",
+    "posthtml-include": "^1.7.2"
   },
   "dependencies": {
     "@types/webmidi": "^2.0.6",

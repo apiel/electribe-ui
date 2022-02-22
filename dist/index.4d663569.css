@@ -1,3 +1,8 @@
+:root {
+    --light-border: #eee;
+    --grey-text: #666;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
 }
@@ -88,6 +93,13 @@ body {
 
 #settingView {
     display: none;
+}
+
+.info {
+    border-left: 8px solid var(--light-border);
+    padding-left: 15px;
+    color: var(--grey-text);
+    text-align: justify;
 }
 
 /*# sourceMappingURL=index.4d663569.css.map */

@@ -37,19 +37,52 @@
 </style>
         <div id="mainView" class="view">
             <h1>Electribe UI</h1>
-            <a class="topBtn" data-view="settingView">⚙</a>
-            I/O: <span id="input">None</span> / <span id="output">None</span><br>
-            <button id="send">Send</button>
-            <div id="pattern">
-                <h2 id="pattern-name"></h2>
-                <div id="pattern-tempo"></div>
-                <div id="pattern-detail"></div>
-            </div>
-            <div id="parts"></div>
+<a class="topBtn" data-view="settingView">⚙</a>
+I/O: <span id="input">None</span> / <span id="output">None</span><br>
+<button id="send">Send</button>
+<div id="pattern">
+    <h2 id="pattern-name"></h2>
+    <div id="pattern-tempo"></div>
+    <div id="pattern-detail"></div>
+</div>
+<div id="parts"></div>
+
         </div>
         <div id="settingView" class="view">
             <h1>Settings</h1>
-            <a class="topBtn" data-view="mainView">✕</a>
+<a class="topBtn" data-view="mainView">✕</a>
+<div>
+    <label>Github user</label>
+    <input id="githubUser" placeholder="Enter github user">
+</div>
+<div>
+    <label>Github repo</label>
+    <input id="githubRepo" placeholder="Enter github repo">
+</div>
+<div>
+    <label>Github token</label>
+    <input id="githubToken" type="password" placeholder="Enter github token">
+</div>
+<div class="info">
+    <p>
+        To save data in your GitHub repository, we need to provide a
+        <a href="https://developer.github.com/v3/auth/#via-oauth-and-personal-access-tokens" target="_blank" rel="noopener noreferrer">
+            personal access tokens
+        </a>
+        to the
+        <a href="https://developer.github.com/v3/" target="_blank" rel="noopener noreferrer">
+            GitHub API
+        </a>
+        . To
+        <a href="https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line" target="_blank" rel="noopener noreferrer">
+            create a token
+        </a>
+        , go in developer settings, personal access tokens and then generate new
+        token. In most of the case you will only need to give permission for
+        public_repo.
+    </p>
+</div>
+
         </div>
 
         <script src="/index.b71e74eb.js" defer=""></script>
