@@ -84,11 +84,11 @@ export function forEachClass(
 }
 
 export function inputById(id: string) {
-    return elById(id) as HTMLInputElement;
+    return elById<HTMLInputElement>(id);
 }
 
-export function elById(id: string) {
-    return document.getElementById(id);
+export function elById<T = HTMLElement>(id: string) {
+    return document.getElementById(id) as any as T;
 }
 
 export function elByClass(classname: string) {

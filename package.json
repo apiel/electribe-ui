@@ -31,6 +31,7 @@
     "ts-node": "^10.5.0"
   },
   "dependencies": {
+    "@octokit/core": "^3.5.1",
     "@types/webmidi": "^2.0.6",
     "electribe-core": "^0.0.8",
     "uninstall": "^0.0.0"

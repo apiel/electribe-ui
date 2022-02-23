@@ -24,13 +24,14 @@ header = (b'KORG'.ljust(16, b'\x00') +
 // const res = sys2pat([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
 // console.log(res, res.toString() === [130, 3, 4, 5, 6, 7, 8, 138, 11, 12, 141, 14, 15, 16].toString());
 
+// cmp -l 091_Basement3.e2pat  hello.e2pat
 export function sys2pat(data: number[]) {
     // if data[6] == 0x4c: (edit given x pattern) should be 9 instead of 7
     const converted = sys2patConvert(data.slice(7, -1));
 
     // const ljust = (arr: number[], len: number, val: number) => [
     //     ...arr,
-    //     ...Array(len).fill(val),
+    //     ...Array(len - arr.length).fill(val),
     // ];
 
     // const header = [
@@ -47,9 +48,8 @@ export function sys2pat(data: number[]) {
     //     ...ljust([0x01, 0x00, 0x00, 0x00], 224, 0xff),
     // ];
     const header = [
-        75, 79, 82, 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 101,
-        108, 101, 99, 116, 114, 105, 98, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 1, 0, 0, 0, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+        75, 79, 82, 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 101, 108, 101, 99,
+        116, 114, 105, 98, 101, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -65,7 +65,7 @@ export function sys2pat(data: number[]) {
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
-        255, 255, 255, 255, 255,
+        255, 255, 255, 255, 255, 255, 255,
     ];
 
     return [...header, ...converted];
@@ -73,7 +73,6 @@ export function sys2pat(data: number[]) {
 
 function sys2patConvert(data: number[]) {
     const chunks = chunk(data, 8);
-
     return chunks.flatMap(([first, ...values]) =>
         (<number[]>values).map((a, i) => a | (((first & (1 << i)) >> i) << 7)),
     );

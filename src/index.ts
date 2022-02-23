@@ -1,7 +1,11 @@
+import { Octokit } from '@octokit/core';
 import { event, parseMessage, Part } from 'electribe-core';
-import { elByClass, elById, evEach, forEachClass } from './dom';
+import { sys2pat } from './codec';
+import { elByClass, elById, evEach, forEachClass, inputById } from './dom';
 
 import './setting';
+import { gitHubStorage } from './storage/GitHubStorage';
+import { getGithubToken } from './storage/localStorage';
 
 // Define fake html lit-html
 // import { html } from 'lit-html';
@@ -95,6 +99,47 @@ event.onPatternData = ({
     elById('send').onclick = () => {
         midiOutput.send(data);
         alert('Pattern sent');
+    };
+
+    elById('download').onclick = () => {
+        const e2pat = sys2pat([...data]);
+        const a = elById<any>('download');
+        a.href = 'data:application/octet-stream;base64,' + Buffer.from(e2pat).toString('base64');
+        a.download = 'dl.e2pat';
+    }
+
+    elById('save').onclick = async () => {
+        console.log('data', data);
+        const e2pat = sys2pat([...data]);
+        console.log('e2pat', e2pat);
+        const res = await gitHubStorage.saveFile('hello.e2pat', e2pat);
+        console.log({ res });
+
+        //   const res = await gitHubStorage.saveBlob('hello.e2pat', new Blob(e2pat as any) as any);
+        // console.log({ res });
+
+        const octokit = new Octokit({ auth: getGithubToken() });
+
+        // await octokit.request('POST /repos/{owner}/{repo}/git/blobs', {
+        //     owner: 'apiel',
+        //     repo: 'zic',
+        //     content: new Blob(e2pat as any) as any
+        //   })
+
+        // await octokit.request('POST /repos/{owner}/{repo}/git/blobs', {
+        //     owner: 'apiel',
+        //     repo: 'zic',
+        //     content: btoa(e2pat)
+        //   })
+
+        // await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
+        //     owner: 'apiel',
+        //     repo: 'zic',
+        //     path: 'yo.e2pat',
+        //     message: 'message',
+        //     content: Buffer.from(e2pat).toString('base64'),
+        //     // content: btoa(e2pat as any)
+        // });
     };
 
     console.log({ pattern, part });

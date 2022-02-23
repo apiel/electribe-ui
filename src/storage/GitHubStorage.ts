@@ -126,7 +126,7 @@ export class GitHubStorage {
         });
     }
 
-    async saveFile(file: string, content: string) {
+    async saveFile(file: string, content: string | number[]) {
         if (!this.repo) {
             throw new Error('GitHub repository required.');
         }
