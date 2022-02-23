@@ -1,5 +1,13 @@
 import { Octokit } from '@octokit/core';
-import { event, GET_CURRENT_PATTERN, parseMessage, Part } from 'electribe-core';
+import {
+    event,
+    GET_CURRENT_PATTERN,
+    parseMessage,
+    parsePattern,
+    Part,
+    Pattern,
+    setName,
+} from 'electribe-core';
 import { sys2pat } from './codec';
 import { elByClass, elById, evEach, forEachClass, inputById } from './dom';
 
@@ -82,10 +90,15 @@ event.onError = ({ type }) => console.error('Error', type);
 
 event.onWriteDone = () => console.log('Write done successfully.');
 
-event.onPatternData = ({
+event.onPatternData = handlePatternData;
+
+function handlePatternData({
     pattern: { name, tempo, beat, length, part, ...pattern },
     data,
-}) => {
+}: {
+    pattern: Pattern;
+    data: number[];
+}) {
     elById('send').onclick = () => {
         midiOutput.send(data);
         alert('Pattern sent');
@@ -121,6 +134,15 @@ event.onPatternData = ({
         // });
     };
 
+    inputById('edit-name').onblur = () => {
+        elById('pattern-name').style.display = 'block';
+        elById('edit-name').style.display = 'none';
+        // should instead change data and rerender
+        // elById('pattern-name').innerHTML = `${inputById('edit-name').value} ${svgEdit()}`;
+        const newData = setName(data, inputById('edit-name').value);
+        handlePatternData({ data: newData, pattern: parsePattern(newData) });
+    };
+
     // console.log({ pattern, part });
 
     elById('pattern-name').innerHTML = `${name} ${svgEdit()}`;
@@ -130,20 +152,13 @@ event.onPatternData = ({
     elById('pattern-detail').innerHTML = renderDetails(pattern);
 
     elById('parts').innerHTML = part.map(renderPart).join('');
-};
+}
 
 elById('pattern-name').onclick = () => {
     elById('pattern-name').style.display = 'none';
     elById('edit-name').style.display = 'block';
     inputById('edit-name').focus();
-}
-
-inputById('edit-name').onblur = () => {
-    elById('pattern-name').style.display = 'block';
-    elById('edit-name').style.display = 'none';
-    // should instead change data and rerender
-    elById('pattern-name').innerHTML = `${inputById('edit-name').value} ${svgEdit()}`;
-}
+};
 
 elById('pattern-tempo').onclick = () => {
     const display = elById('pattern-detail').style.display;

@@ -577,7 +577,8 @@ _electribeCore.event.onError = ({ type  })=>console.error('Error', type)
 ;
 _electribeCore.event.onWriteDone = ()=>console.log('Write done successfully.')
 ;
-_electribeCore.event.onPatternData = ({ pattern: { name , tempo , beat , length , part , ...pattern } , data ,  })=>{
+_electribeCore.event.onPatternData = handlePatternData;
+function handlePatternData({ pattern: { name , tempo , beat , length , part , ...pattern } , data  }) {
     _dom.elById('send').onclick = ()=>{
         midiOutput.send(data);
         alert('Pattern sent');
@@ -610,23 +611,28 @@ _electribeCore.event.onPatternData = ({ pattern: { name , tempo , beat , length 
     //     // content: btoa(e2pat as any)
     // });
     };
+    _dom.inputById('edit-name').onblur = ()=>{
+        _dom.elById('pattern-name').style.display = 'block';
+        _dom.elById('edit-name').style.display = 'none';
+        // should instead change data and rerender
+        // elById('pattern-name').innerHTML = `${inputById('edit-name').value} ${svgEdit()}`;
+        const newData = _electribeCore.setName(data, _dom.inputById('edit-name').value);
+        handlePatternData({
+            data: newData,
+            pattern: _electribeCore.parsePattern(newData)
+        });
+    };
     // console.log({ pattern, part });
     _dom.elById('pattern-name').innerHTML = `${name} ${svgEdit()}`;
     _dom.inputById('edit-name').value = name;
     _dom.elById('pattern-tempo').innerHTML = renderPatternTempo(tempo, beat, length);
     _dom.elById('pattern-detail').innerHTML = renderDetails(pattern);
     _dom.elById('parts').innerHTML = part.map(renderPart).join('');
-};
+}
 _dom.elById('pattern-name').onclick = ()=>{
     _dom.elById('pattern-name').style.display = 'none';
     _dom.elById('edit-name').style.display = 'block';
     _dom.inputById('edit-name').focus();
-};
-_dom.inputById('edit-name').onblur = ()=>{
-    _dom.elById('pattern-name').style.display = 'block';
-    _dom.elById('edit-name').style.display = 'none';
-    // should instead change data and rerender
-    _dom.elById('pattern-name').innerHTML = `${_dom.inputById('edit-name').value} ${svgEdit()}`;
 };
 _dom.elById('pattern-tempo').onclick = ()=>{
     const display = _dom.elById('pattern-detail').style.display;
