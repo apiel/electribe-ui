@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/core';
-import { event, parseMessage, Part } from 'electribe-core';
+import { event, GET_CURRENT_PATTERN, parseMessage, Part } from 'electribe-core';
 import { sys2pat } from './codec';
 import { elByClass, elById, evEach, forEachClass, inputById } from './dom';
 
@@ -41,10 +41,6 @@ function onMIDISuccess(midiAccess) {
     const midiInput = findElectribe2(midi.inputs);
     midiOutput = findElectribe2(midi.outputs);
 
-    // for testing purpose
-    (window as any).midi = midi;
-    (window as any).midiOutput = midiOutput;
-
     if (!midiInput || !midiOutput) {
         alert(
             'Could not find electribe 2, check if device is properly connect.',
@@ -61,7 +57,7 @@ function onMIDISuccess(midiAccess) {
 }
 
 function queryCurrentPattern() {
-    midiOutput.send([240, 66, 48, 0, 1, 35, 16, 247]);
+    midiOutput.send(GET_CURRENT_PATTERN);
 }
 
 function onMIDIFailure(error) {
@@ -90,48 +86,31 @@ event.onPatternData = ({
     pattern: { name, tempo, beat, length, part, ...pattern },
     data,
 }) => {
-    // For testing purpose
-    // https://webaudio.github.io/web-midi-api/#midioutput-interface
-    // midiOutput.send(lastPatternData)
-    // unfortunately, it is too big and doesnt work for the moment
-    // https://github.com/WebAudio/web-midi-api/issues/158
-    (window as any).lastPatternData = data;
     elById('send').onclick = () => {
         midiOutput.send(data);
         alert('Pattern sent');
     };
 
-    elById('download').onclick = () => {
+    const download = () => {
         const e2pat = sys2pat([...data]);
         const a = elById<any>('download');
-        a.href = 'data:application/octet-stream;base64,' + Buffer.from(e2pat).toString('base64');
-        a.download = 'dl.e2pat';
-    }
+        a.href =
+            'data:application/octet-stream;base64,' +
+            Buffer.from(e2pat).toString('base64');
+        a.download = `${name}.e2pat`;
+    };
+    elById('download').onclick = download;
+    download();
 
     elById('save').onclick = async () => {
         console.log('data', data);
         const e2pat = sys2pat([...data]);
         console.log('e2pat', e2pat);
-        const res = await gitHubStorage.saveFile('hello.e2pat', e2pat);
-        console.log({ res });
+        await gitHubStorage.saveFile('hello.e2pat', e2pat);
 
-        //   const res = await gitHubStorage.saveBlob('hello.e2pat', new Blob(e2pat as any) as any);
-        // console.log({ res });
+        // or
 
-        const octokit = new Octokit({ auth: getGithubToken() });
-
-        // await octokit.request('POST /repos/{owner}/{repo}/git/blobs', {
-        //     owner: 'apiel',
-        //     repo: 'zic',
-        //     content: new Blob(e2pat as any) as any
-        //   })
-
-        // await octokit.request('POST /repos/{owner}/{repo}/git/blobs', {
-        //     owner: 'apiel',
-        //     repo: 'zic',
-        //     content: btoa(e2pat)
-        //   })
-
+        // const octokit = new Octokit({ auth: getGithubToken() });
         // await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
         //     owner: 'apiel',
         //     repo: 'zic',
@@ -142,15 +121,29 @@ event.onPatternData = ({
         // });
     };
 
-    console.log({ pattern, part });
+    // console.log({ pattern, part });
 
-    elById('pattern-name').innerText = name;
+    elById('pattern-name').innerHTML = `${name} ${svgEdit()}`;
+    inputById('edit-name').value = name;
     elById('pattern-tempo').innerHTML = renderPatternTempo(tempo, beat, length);
 
     elById('pattern-detail').innerHTML = renderDetails(pattern);
 
     elById('parts').innerHTML = part.map(renderPart).join('');
 };
+
+elById('pattern-name').onclick = () => {
+    elById('pattern-name').style.display = 'none';
+    elById('edit-name').style.display = 'block';
+    inputById('edit-name').focus();
+}
+
+inputById('edit-name').onblur = () => {
+    elById('pattern-name').style.display = 'block';
+    elById('edit-name').style.display = 'none';
+    // should instead change data and rerender
+    elById('pattern-name').innerHTML = `${inputById('edit-name').value} ${svgEdit()}`;
+}
 
 elById('pattern-tempo').onclick = () => {
     const display = elById('pattern-detail').style.display;
@@ -162,6 +155,20 @@ evEach(elByClass('topBtn'), 'click', (event) => {
     forEachClass('view', (el) => ((<HTMLElement>el).style.display = 'none'));
     elById((<HTMLElement>event.target).dataset.view).style.display = 'block';
 });
+
+function svgEdit() {
+    return html`<svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+    >
+        <title>edit</title>
+        <path
+            d="M16.77 8l1.94-2a1 1 0 0 0 0-1.41l-3.34-3.3a1 1 0 0 0-1.41 0L12 3.23zm-5.81-3.71L1 14.25V19h4.75l9.96-9.96-4.75-4.75z"
+        />
+    </svg>`;
+}
 
 function renderPart({
     name,
