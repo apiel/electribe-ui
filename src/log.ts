@@ -1,37 +1,24 @@
-rewireLoggingToElement(
-    () => document.getElementById('log'),
-    () => document.getElementById('logContainer'),
-    true,
-);
+rewireLoggingToElement();
 
-function rewireLoggingToElement(eleLocator, eleOverflowLocator, autoScroll) {
+function rewireLoggingToElement() {
     fixLoggingFunc('log');
     fixLoggingFunc('debug');
     fixLoggingFunc('warn');
     fixLoggingFunc('error');
     fixLoggingFunc('info');
 
+    const eleLog = document.getElementById('log');
+
+    document.getElementById('toggleLog').onclick = () => {
+        eleLog.style.display =
+            eleLog.style.display === 'none' ? 'block' : 'none';
+    };
+
     function fixLoggingFunc(name: string) {
         console['old' + name] = console[name];
         console[name] = function (...params: any[]) {
             const output = produceOutput(name, params);
-            const eleLog = eleLocator();
-
-            if (autoScroll) {
-                const eleContainerLog = eleOverflowLocator();
-                const isScrolledToBottom =
-                    eleContainerLog.scrollHeight -
-                        eleContainerLog.clientHeight <=
-                    eleContainerLog.scrollTop + 1;
-                eleLog.innerHTML += output + '<br>';
-                if (isScrolledToBottom) {
-                    eleContainerLog.scrollTop =
-                        eleContainerLog.scrollHeight -
-                        eleContainerLog.clientHeight;
-                }
-            } else {
-                eleLog.innerHTML += output + '<br>';
-            }
+            eleLog.innerHTML += output + '<br>';
 
             console['old' + name].apply(undefined, params);
         };

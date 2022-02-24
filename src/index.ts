@@ -103,6 +103,7 @@ function handlePatternData({
     console.log(part.map(({modulation}) => modulation));
 
     elById('send').onclick = () => {
+        console.log('try to send data', data);
         midiOutput.send(data);
         alert('Pattern sent');
     };

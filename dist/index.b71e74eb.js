@@ -583,6 +583,7 @@ function handlePatternData({ pattern: { name , tempo , beat , length , part , ..
     console.log(part.map(({ modulation  })=>modulation
     ));
     _dom.elById('send').onclick = ()=>{
+        console.log('try to send data', data);
         midiOutput.send(data);
         alert('Pattern sent');
     };
@@ -6492,27 +6493,23 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
 };
 
 },{}],"2r2Y2":[function(require,module,exports) {
-rewireLoggingToElement(()=>document.getElementById('log')
-, ()=>document.getElementById('logContainer')
-, true);
-function rewireLoggingToElement(eleLocator, eleOverflowLocator, autoScroll) {
+rewireLoggingToElement();
+function rewireLoggingToElement() {
     fixLoggingFunc('log');
     fixLoggingFunc('debug');
     fixLoggingFunc('warn');
     fixLoggingFunc('error');
     fixLoggingFunc('info');
+    const eleLog = document.getElementById('log');
+    document.getElementById('toggleLog').onclick = ()=>{
+        eleLog.style.display = eleLog.style.display === 'none' ? 'block' : 'none';
+    };
     function fixLoggingFunc(name) {
         console['old' + name] = console[name];
-        console[name] = function(...arguments) {
-            const output = produceOutput(name, arguments);
-            const eleLog = eleLocator();
-            if (autoScroll) {
-                const eleContainerLog = eleOverflowLocator();
-                const isScrolledToBottom = eleContainerLog.scrollHeight - eleContainerLog.clientHeight <= eleContainerLog.scrollTop + 1;
-                eleLog.innerHTML += output + '<br>';
-                if (isScrolledToBottom) eleContainerLog.scrollTop = eleContainerLog.scrollHeight - eleContainerLog.clientHeight;
-            } else eleLog.innerHTML += output + '<br>';
-            console['old' + name].apply(undefined, arguments);
+        console[name] = function(...params) {
+            const output = produceOutput(name, params);
+            eleLog.innerHTML += output + '<br>';
+            console['old' + name].apply(undefined, params);
         };
     }
     function produceOutput(name, args) {
