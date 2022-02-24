@@ -33,7 +33,7 @@
   "dependencies": {
     "@octokit/core": "^3.5.1",
     "@types/webmidi": "^2.0.6",
-    "electribe-core": "^0.0.9",
+    "electribe-core": "^0.0.10",
     "uninstall": "^0.0.0"
   }
 }

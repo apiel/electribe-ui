@@ -1,7 +1,7 @@
 import { Octokit } from '@octokit/core';
 import {
     event,
-    GET_CURRENT_PATTERN,
+    SYSEX_CURRENT_PATTERN,
     parseMessage,
     parsePattern,
     Part,
@@ -65,7 +65,7 @@ function onMIDISuccess(midiAccess) {
 }
 
 function queryCurrentPattern() {
-    midiOutput.send(GET_CURRENT_PATTERN);
+    midiOutput.send(SYSEX_CURRENT_PATTERN);
 }
 
 function onMIDIFailure(error) {
