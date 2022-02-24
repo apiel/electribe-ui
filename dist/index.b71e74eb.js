@@ -561,7 +561,7 @@ function onMIDISuccess(midiAccess) {
     }
 }
 function queryCurrentPattern() {
-    midiOutput.send(_electribeCore.GET_CURRENT_PATTERN);
+    midiOutput.send(_electribeCore.SYSEX_GET_CURRENT_PATTERN);
 }
 function onMIDIFailure(error) {
     console.error("No access to MIDI devices or your browser doesn't support WebMIDI API. Please use WebMIDIAPIShim ", error);
@@ -579,6 +579,8 @@ _electribeCore.event.onWriteDone = ()=>console.log('Write done successfully.')
 ;
 _electribeCore.event.onPatternData = handlePatternData;
 function handlePatternData({ pattern: { name , tempo , beat , length , part , ...pattern } , data  }) {
+    console.log(part.map(({ modulation  })=>modulation
+    ));
     _dom.elById('send').onclick = ()=>{
         midiOutput.send(data);
         alert('Pattern sent');
@@ -593,7 +595,7 @@ function handlePatternData({ pattern: { name , tempo , beat , length , part , ..
     };
     _dom.elById('download').onclick = download;
     download();
-    _dom.elById('save').onclick = async ()=>{
+    _dom.elById('push').onclick = async ()=>{
         console.log('data', data);
         const e2pat = _codec.sys2pat([
             ...data
@@ -629,6 +631,13 @@ function handlePatternData({ pattern: { name , tempo , beat , length , part , ..
     _dom.elById('pattern-detail').innerHTML = renderDetails(pattern);
     _dom.elById('parts').innerHTML = part.map(renderPart).join('');
 }
+_dom.elById('fileSelector').onchange = async (event)=>{
+    const file = event.target.files[0];
+    const data = _codec.pat2sys([
+        ...new Uint8Array(await file.arrayBuffer())
+    ]);
+    _electribeCore.parseMessage(data);
+};
 _dom.elById('pattern-name').onclick = ()=>{
     _dom.elById('pattern-name').style.display = 'none';
     _dom.elById('edit-name').style.display = 'block';
@@ -746,15 +755,14 @@ __exportStar(require("./constant"), exports);
 __exportStar(require("./mod"), exports);
 __exportStar(require("./osc"), exports);
 __exportStar(require("./electribe"), exports);
-__exportStar(require("./command"), exports);
+__exportStar(require("./hex"), exports);
 
-},{"./constant":"1FZLF","./mod":"gIlIH","./osc":"4Uasb","./electribe":"j0j8B","./command":"dc2Nv"}],"1FZLF":[function(require,module,exports) {
+},{"./constant":"1FZLF","./mod":"gIlIH","./osc":"4Uasb","./electribe":"j0j8B","./hex":"98LpD"}],"1FZLF":[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.IFX = exports.FILTER = exports.SCALE = exports.KEY = exports.MFX = exports.BEAT = exports.ELECTRIBE2_SYSEX_HEADER = void 0;
-exports.ELECTRIBE2_SYSEX_HEADER = '240,66,48,0,1,35'; // 0xf0, 0x42, 0x30, 0, 1, 0x23
+exports.IFX = exports.FILTER = exports.SCALE = exports.KEY = exports.MFX = exports.BEAT = void 0;
 exports.BEAT = [
     '16',
     '32',
@@ -3175,9 +3183,11 @@ exports.event = {
     }
 };
 function parseMessage(data) {
-    var headers = data.slice(0, 6).toString();
-    if (headers === _1.ELECTRIBE2_SYSEX_HEADER) // See 1-4 SYSTEM EXCLUSIVE MESSAGES
-    switch(data[6]){
+    var headerEnd = _1.E2_SYSEX_HEADER.length;
+    var headers = data.slice(0, headerEnd).toString();
+    if (headers === _1.E2_SYSEX_HEADER_STR) // See 1-4 SYSTEM EXCLUSIVE MESSAGES
+    switch(data[headerEnd]){
+        // should move those to hex...
         case 64:
         case 76:
             // console.log('Received pattern', data);
@@ -3452,7 +3462,8 @@ function parsePart(data, partId) {
         },
         modulation: {
             id: data[pos + modPos] + 1,
-            name: mod_1.MOD[data[pos + modPos]],
+            name: mod_1.MOD[data[pos + modPos]] || {
+            },
             speed: data[pos + modSpeedPos],
             depth: data[pos + modDepthPos]
         },
@@ -3474,334 +3485,364 @@ function parsePart(data, partId) {
     return part;
 }
 
-},{"./constant":"1FZLF","./osc":"4Uasb","./mod":"gIlIH",".":"6gcYi"}],"dc2Nv":[function(require,module,exports) {
+},{"./constant":"1FZLF","./osc":"4Uasb","./mod":"gIlIH",".":"6gcYi"}],"98LpD":[function(require,module,exports) {
 "use strict";
+var __read = this && this.__read || function(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while((n === void 0 || n-- > 0) && !(r = i.next()).done)ar.push(r.value);
+    } catch (error) {
+        e = {
+            error: error
+        };
+    } finally{
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        } finally{
+            if (e) throw e.error;
+        }
+    }
+    return ar;
+};
+var __spreadArray = this && this.__spreadArray || function(to, from, pack) {
+    if (pack || arguments.length === 2) {
+        for(var i = 0, l = from.length, ar; i < l; i++)if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.GET_CURRENT_PATTERN = void 0;
-exports.GET_CURRENT_PATTERN = [
+exports.generateHexE2BinHeader = exports.E2_BIN_HEADER = exports.SYSEX_GET_PATTERN = exports.SYSEX_SEND_CURRENT_PATTERN = exports.SYSEX_GET_CURRENT_PATTERN = exports.E2_SYSEX_HEADER_STR = exports.E2_SYSEX_HEADER = void 0;
+exports.E2_SYSEX_HEADER = [
     240,
     66,
     48,
     0,
     1,
-    35,
+    35
+]; // 0xf0, 0x42, 0x30, 0, 1, 0x23
+exports.E2_SYSEX_HEADER_STR = exports.E2_SYSEX_HEADER.toString();
+exports.SYSEX_GET_CURRENT_PATTERN = __spreadArray(__spreadArray([], __read(exports.E2_SYSEX_HEADER), false), [
     16,
     247
-]; // F0,42,30,00,01,23,10,F7
+], false); // F0,42,30,00,01,23,10,F7
+exports.SYSEX_SEND_CURRENT_PATTERN = __spreadArray(__spreadArray([], __read(exports.E2_SYSEX_HEADER), false), [
+    64,
+    247
+], false);
+var SYSEX_GET_PATTERN = function(pos) {
+    return __spreadArray(__spreadArray([], __read(exports.E2_SYSEX_HEADER), false), [
+        76,
+        (pos - 1) % 128,
+        pos > 128 ? 1 : 0, 
+    ], false);
+};
+exports.SYSEX_GET_PATTERN = SYSEX_GET_PATTERN;
+// Python
+// (b'KORG'.ljust(16, b'\x00') + 
+//     b'electribe'.ljust(16, b'\x00') +
+//     b'\x01\x00\x00\x00'.ljust(224, b'\xff'))
+exports.E2_BIN_HEADER = [
+    75,
+    79,
+    82,
+    71,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    101,
+    108,
+    101,
+    99,
+    116,
+    114,
+    105,
+    98,
+    101,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255,
+    255, 
+];
+function generateHexE2BinHeader() {
+    var ljust = function(arr, len, val) {
+        return __spreadArray(__spreadArray([], __read(arr), false), __read(Array(len - arr.length).fill(val)), false);
+    };
+    var b = function(str) {
+        return __spreadArray([], __read(str), false).map(function(c) {
+            return c.charCodeAt(0);
+        });
+    };
+    return __spreadArray(__spreadArray(__spreadArray([], __read(ljust(b('KORG'), 16, 0)), false), __read(ljust(b('electribe'), 16, 0)), false), __read(ljust([
+        1,
+        0,
+        0,
+        0
+    ], 224, 255)), false);
+}
+exports.generateHexE2BinHeader = generateHexE2BinHeader;
 
 },{}],"4Z4fK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-/*
-syx = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-# make at array of array of 8 item [[1, 2, 3, 4, 5, 6, 7, 8], [9, 10, 11, 12, 13, 14, 15, 16]]
-chk = [syx[i:i + 8] for i in range(0, len(syx), 8)]
-lst = []
-tmp = []
-a = 0
-for l in chk:
-    for i in range(len(l)-1):
-        a = l[i+1]
-        a |= ((l[0] & (1<<i))>>i)<<7   
-        tmp.append(a)
-    lst.append(tmp)
-    tmp = []
-# flaten everthing
-byt = [item for sublist in lst for item in sublist]
-# result: [130, 3, 4, 5, 6, 7, 8, 138, 11, 12, 141, 14, 15, 16]
-
-header = (b'KORG'.ljust(16, b'\x00') + 
-               b'electribe'.ljust(16, b'\x00') +
-               b'\x01\x00\x00\x00'.ljust(224, b'\xff'))
-*/ // too lazy to implement unit test
+// see https://github.com/bangcorrupt/e2-scripts
+// too lazy to implement unit test
 // const res = sys2pat([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
 // console.log(res, res.toString() === [130, 3, 4, 5, 6, 7, 8, 138, 11, 12, 141, 14, 15, 16].toString());
 // cmp -l 091_Basement3.e2pat  hello.e2pat
 parcelHelpers.export(exports, "sys2pat", ()=>sys2pat
 );
+parcelHelpers.export(exports, "pat2sys", ()=>pat2sys
+);
+// should move this to electribe-core
+var _dist = require("electribe-core/dist");
 function sys2pat(data) {
-    // if data[6] == 0x4c: (edit given x pattern) should be 9 instead of 7
-    const converted = sys2patConvert(data.slice(7, -1));
-    // const ljust = (arr: number[], len: number, val: number) => [
-    //     ...arr,
-    //     ...Array(len - arr.length).fill(val),
-    // ];
-    // const header = [
-    //     ...ljust(
-    //         [...'KORG'].map((c) => c.charCodeAt(0)),
-    //         16,
-    //         0x00,
-    //     ),
-    //     ...ljust(
-    //         [...'electribe'].map((c) => c.charCodeAt(0)),
-    //         16,
-    //         0x00,
-    //     ),
-    //     ...ljust([0x01, 0x00, 0x00, 0x00], 224, 0xff),
-    // ];
-    const header = [
-        75,
-        79,
-        82,
-        71,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        101,
-        108,
-        101,
-        99,
-        116,
-        114,
-        105,
-        98,
-        101,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255,
-        255, 
-    ];
+    const trimmedData = data.slice(_dist.SYSEX_SEND_CURRENT_PATTERN.length - 1, -1);
     return [
-        ...header,
-        ...converted
+        ..._dist.E2_BIN_HEADER,
+        ...sys2patConvert(trimmedData)
     ];
 }
 function sys2patConvert(data) {
@@ -3818,8 +3859,72 @@ function chunk(data, chunkSize) {
     }
     return res;
 }
+function pat2sys(data) {
+    const trimmedData = data.slice(_dist.E2_BIN_HEADER.length - 1);
+    const converted = pat2sysConvert(trimmedData);
+    return [
+        ..._dist.SYSEX_SEND_CURRENT_PATTERN,
+        ...converted,
+        247
+    ];
+}
+// let res = pat2sysConvert([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+// console.log(res, res.toString() === [0, 1, 2, 3, 4, 5, 6, 7, 0, 8, 9, 10, 11, 12, 13, 14, 0, 15, 16].toString());
+// res = pat2sysConvert([130, 3, 4, 5, 6, 7, 8, 138, 11, 12, 141, 14, 15, 16]);
+// console.log(res, res.toString() === [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].toString());
+// const testData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+// res = sys2patConvert(pat2sysConvert(testData));
+// console.log(res, res.toString() === testData.toString());
+function pat2sysConvert(data) {
+    let lim = 0;
+    let b = 0;
+    let tmp = [];
+    return data.flatMap((e, i)=>{
+        const cnt = 6 - i % 7;
+        tmp.push(e & -129);
+        b |= (e & 128) >> cnt + 1;
+        if (cnt === lim) {
+            if (data.length - i < 7) lim = 7 - (data.length - i) + 1;
+            const res = [
+                b,
+                ...tmp
+            ];
+            tmp = [];
+            b = 0;
+            return res;
+        }
+        return [];
+    });
+} // function pat2sysConvert(data: number[]) {
+ //     let lng = data.length;
+ //     let lim = 0;
+ //     let b = 0;
+ //     let cnt = 7;
+ //     let tmp: any[] = [];
+ //     let lst: any[] = [];
+ //     data.forEach((e, i) => {
+ //         const a = e & ~0b10000000;
+ //         b |= (e & 0b10000000) >> cnt;
+ //         tmp.push(a);
+ //         cnt -= 1;
+ //         if (lng < 7) {
+ //             lim = 7 - lng;
+ //         }
+ //         if (cnt === lim) {
+ //             lst.push([b]);
+ //             lst.push(tmp);
+ //             tmp = [];
+ //             b = 0;
+ //             cnt = 7;
+ //             if (lng - i < 7) {
+ //                 lim = 7 - (lng - i) + 1;
+ //             }
+ //         }
+ //     });
+ //     return lst.flat();
+ // }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","electribe-core/dist":"6gcYi"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a

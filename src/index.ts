@@ -1,14 +1,14 @@
 import { Octokit } from '@octokit/core';
 import {
     event,
-    SYSEX_CURRENT_PATTERN,
     parseMessage,
     parsePattern,
     Part,
     Pattern,
     setName,
+    SYSEX_GET_CURRENT_PATTERN,
 } from 'electribe-core';
-import { sys2pat } from './codec';
+import { pat2sys, sys2pat } from './codec';
 import { elByClass, elById, evEach, forEachClass, inputById } from './dom';
 
 import './setting';
@@ -65,7 +65,7 @@ function onMIDISuccess(midiAccess) {
 }
 
 function queryCurrentPattern() {
-    midiOutput.send(SYSEX_CURRENT_PATTERN);
+    midiOutput.send(SYSEX_GET_CURRENT_PATTERN);
 }
 
 function onMIDIFailure(error) {
@@ -99,6 +99,8 @@ function handlePatternData({
     pattern: Pattern;
     data: number[];
 }) {
+    console.log(part.map(({modulation}) => modulation));
+
     elById('send').onclick = () => {
         midiOutput.send(data);
         alert('Pattern sent');
@@ -115,7 +117,7 @@ function handlePatternData({
     elById('download').onclick = download;
     download();
 
-    elById('save').onclick = async () => {
+    elById('push').onclick = async () => {
         console.log('data', data);
         const e2pat = sys2pat([...data]);
         console.log('e2pat', e2pat);
@@ -153,6 +155,12 @@ function handlePatternData({
 
     elById('parts').innerHTML = part.map(renderPart).join('');
 }
+
+elById('fileSelector').onchange = async (event) => {
+    const file = (<HTMLInputElement>event.target).files[0];
+    const data = pat2sys([...new Uint8Array(await file.arrayBuffer())]);
+    parseMessage(data);
+};
 
 elById('pattern-name').onclick = () => {
     elById('pattern-name').style.display = 'none';

@@ -1,6 +1,6 @@
 // should move this to electribe-core
 
-import { E2_BIN_HEADER, SYSEX_CURRENT_PATTERN } from 'electribe-core/dist';
+import { E2_BIN_HEADER, SYSEX_SEND_CURRENT_PATTERN } from 'electribe-core/dist';
 
 // see https://github.com/bangcorrupt/e2-scripts
 
@@ -10,7 +10,7 @@ import { E2_BIN_HEADER, SYSEX_CURRENT_PATTERN } from 'electribe-core/dist';
 
 // cmp -l 091_Basement3.e2pat  hello.e2pat
 export function sys2pat(data: number[]) {
-    const trimmedData = data.slice(SYSEX_CURRENT_PATTERN.length - 1, -1);
+    const trimmedData = data.slice(SYSEX_SEND_CURRENT_PATTERN.length - 1, -1);
 
     return [...E2_BIN_HEADER, ...sys2patConvert(trimmedData)];
 }
@@ -35,7 +35,7 @@ export function pat2sys(data: number[]) {
     const trimmedData = data.slice(E2_BIN_HEADER.length - 1);
     const converted = pat2sysConvert(trimmedData);
 
-    return [...SYSEX_CURRENT_PATTERN, ...converted, 0xf7];
+    return [...SYSEX_SEND_CURRENT_PATTERN, ...converted, 0xf7];
 }
 
 // let res = pat2sysConvert([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
@@ -67,57 +67,31 @@ function pat2sysConvert(data: number[]) {
     });
 }
 
-/*
-lng = len(byt)
-lst = []
-tmp = []
-b = 0
-cnt = 7
-lim = 0
-for i,e in enumerate(byt):
-    if lng < 7:
-        lim = 7 - lng
-    a = e & ~0b10000000
-    b |= ((e & 0b10000000)>>cnt)
-    tmp.append(a)
-    cnt -= 1
-    if cnt == lim:
-        lst.append([b])
-        lst.append(tmp)
-        tmp = []
-        b = 0
-        cnt = 7
-        if (lng - i) < 7:
-            lim = 7 - (lng - i) + 1
-syx = [item for sublist in lst for item in sublist]
-*/
-/*
-function pat2sysConvert(data: number[]) {
-    let lng = data.length;
-    let lim = 0;
-    let b = 0;
-    let cnt = 7;
-    let tmp: any[] = [];
-    let lst: any[] = [];
-    data.forEach((e, i) => {
-        const a = e & ~0b10000000;
-        b |= (e & 0b10000000) >> cnt;
-        tmp.push(a);
-        cnt -= 1;
-        if (lng < 7) {
-            lim = 7 - lng;
-        }
-        if (cnt === lim) {
-            lst.push([b]);
-            lst.push(tmp);
-            tmp = [];
-            b = 0;
-            cnt = 7;
-            if (lng - i < 7) {
-                lim = 7 - (lng - i) + 1;
-            }
-        }
-    });
-    return lst.flat();
-}
-*/
+// function pat2sysConvert(data: number[]) {
+//     let lng = data.length;
+//     let lim = 0;
+//     let b = 0;
+//     let cnt = 7;
+//     let tmp: any[] = [];
+//     let lst: any[] = [];
+//     data.forEach((e, i) => {
+//         const a = e & ~0b10000000;
+//         b |= (e & 0b10000000) >> cnt;
+//         tmp.push(a);
+//         cnt -= 1;
+//         if (lng < 7) {
+//             lim = 7 - lng;
+//         }
+//         if (cnt === lim) {
+//             lst.push([b]);
+//             lst.push(tmp);
+//             tmp = [];
+//             b = 0;
+//             cnt = 7;
+//             if (lng - i < 7) {
+//                 lim = 7 - (lng - i) + 1;
+//             }
+//         }
+//     });
+//     return lst.flat();
+// }
