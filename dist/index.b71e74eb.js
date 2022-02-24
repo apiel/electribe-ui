@@ -524,6 +524,7 @@ var _codec = require("./codec");
 var _dom = require("./dom");
 var _setting = require("./setting");
 var _gitHubStorage = require("./storage/GitHubStorage");
+var _log = require("./log");
 var Buffer = require("buffer").Buffer;
 // Define fake html lit-html
 // import { html } from 'lit-html';
@@ -731,7 +732,7 @@ function renderDetail(key, value) {
     return html`<div><span>${key}</span>: <span>${value}</span></div>`;
 }
 
-},{"electribe-core":"6gcYi","./codec":"4Z4fK","./dom":"4c0m4","./setting":"falTm","./storage/GitHubStorage":"drxmx","buffer":"fCgem"}],"6gcYi":[function(require,module,exports) {
+},{"electribe-core":"6gcYi","./codec":"4Z4fK","./dom":"4c0m4","./setting":"falTm","./storage/GitHubStorage":"drxmx","buffer":"fCgem","./log":"2r2Y2"}],"6gcYi":[function(require,module,exports) {
 "use strict";
 var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -6489,6 +6490,37 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
     for(; eLen > 0; buffer[offset + i] = e & 255, i += d, e /= 256, eLen -= 8);
     buffer[offset + i - d] |= s * 128;
 };
+
+},{}],"2r2Y2":[function(require,module,exports) {
+rewireLoggingToElement(()=>document.getElementById('log')
+, ()=>document.getElementById('logContainer')
+, true);
+function rewireLoggingToElement(eleLocator, eleOverflowLocator, autoScroll) {
+    fixLoggingFunc('log');
+    fixLoggingFunc('debug');
+    fixLoggingFunc('warn');
+    fixLoggingFunc('error');
+    fixLoggingFunc('info');
+    function fixLoggingFunc(name) {
+        console['old' + name] = console[name];
+        console[name] = function(...arguments) {
+            const output = produceOutput(name, arguments);
+            const eleLog = eleLocator();
+            if (autoScroll) {
+                const eleContainerLog = eleOverflowLocator();
+                const isScrolledToBottom = eleContainerLog.scrollHeight - eleContainerLog.clientHeight <= eleContainerLog.scrollTop + 1;
+                eleLog.innerHTML += output + '<br>';
+                if (isScrolledToBottom) eleContainerLog.scrollTop = eleContainerLog.scrollHeight - eleContainerLog.clientHeight;
+            } else eleLog.innerHTML += output + '<br>';
+            console['old' + name].apply(undefined, arguments);
+        };
+    }
+    function produceOutput(name, args) {
+        return args.reduce((output, arg)=>{
+            return output + '<span class="log-' + typeof arg + ' log-' + name + '">' + (typeof arg === 'object' ? JSON.stringify(arg) : arg) + '</span>&nbsp;';
+        }, '');
+    }
+}
 
 },{}]},["8wcER","h7u1C"], "h7u1C", "parcelRequire4c4a")
 

@@ -14,6 +14,7 @@ import { elByClass, elById, evEach, forEachClass, inputById } from './dom';
 import './setting';
 import { gitHubStorage } from './storage/GitHubStorage';
 import { getGithubToken } from './storage/localStorage';
+import './log'
 
 // Define fake html lit-html
 // import { html } from 'lit-html';
