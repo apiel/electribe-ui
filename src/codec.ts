@@ -1,6 +1,6 @@
 // should move this to electribe-core
 
-import { E2_BIN_HEADER, SYSEX_SEND_CURRENT_PATTERN } from 'electribe-core/dist';
+import { E2_BIN_HEADER, E2_SYSEX_HEADER, SYSEX_SEND_CURRENT_PATTERN } from 'electribe-core/dist';
 
 // see https://github.com/bangcorrupt/e2-scripts
 
@@ -35,7 +35,8 @@ export function pat2sys(data: number[]) {
     const trimmedData = data.slice(E2_BIN_HEADER.length - 1);
     const converted = pat2sysConvert(trimmedData);
 
-    return [...SYSEX_SEND_CURRENT_PATTERN, ...converted, 0xf7];
+    //return [...SYSEX_SEND_CURRENT_PATTERN, ...converted, 0xf7];
+    return [...E2_SYSEX_HEADER, 0x40, 0, ...converted, 0xf7]
 }
 
 // let res = pat2sysConvert([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
