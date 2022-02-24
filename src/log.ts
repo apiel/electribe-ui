@@ -13,8 +13,8 @@ function rewireLoggingToElement(eleLocator, eleOverflowLocator, autoScroll) {
 
     function fixLoggingFunc(name: string) {
         console['old' + name] = console[name];
-        console[name] = function (...arguments) {
-            const output = produceOutput(name, arguments);
+        console[name] = function (...params: any[]) {
+            const output = produceOutput(name, params);
             const eleLog = eleLocator();
 
             if (autoScroll) {
@@ -33,7 +33,7 @@ function rewireLoggingToElement(eleLocator, eleOverflowLocator, autoScroll) {
                 eleLog.innerHTML += output + '<br>';
             }
 
-            console['old' + name].apply(undefined, arguments);
+            console['old' + name].apply(undefined, params);
         };
     }
 
