@@ -1,1 +1,0 @@
-{"mappings":"AAAA,KACA,sCACA,CAEA,eACA,cACA,CAEA,gBACA,YACA","sources":["src/styles.css"],"sourcesContent":["body {\n    font-family: Arial, Helvetica, sans-serif;\n}\n\n#pattern-tempo {\n    cursor: pointer;\n}\n\n#pattern-detail {\n    display: none;\n}"],"names":[],"version":3,"file":"index.ad00ec87.css.map"}

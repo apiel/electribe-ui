@@ -8,13 +8,13 @@ import {
     setName,
     SYSEX_GET_CURRENT_PATTERN,
 } from 'electribe-core';
-import { pat2sys, sys2pat } from './codec';
+import { checkDiff, pat2sys, sys2pat } from './codec';
 import { elByClass, elById, evEach, forEachClass, inputById } from './dom';
 
 import './setting';
 import { gitHubStorage } from './storage/GitHubStorage';
 import { getGithubToken } from './storage/localStorage';
-import './log'
+import './log';
 
 // Define fake html lit-html
 // import { html } from 'lit-html';
@@ -93,6 +93,7 @@ event.onWriteDone = () => console.log('Write done successfully.');
 
 event.onPatternData = handlePatternData;
 
+let lastdata;
 function handlePatternData({
     pattern: { name, tempo, beat, length, part, ...pattern },
     data,
@@ -100,7 +101,8 @@ function handlePatternData({
     pattern: Pattern;
     data: number[];
 }) {
-    console.log(part.map(({modulation}) => modulation));
+    lastdata = data;
+    console.log(part.map(({ modulation }) => modulation));
 
     elById('send').onclick = () => {
         console.log('try to send data', data);
@@ -118,8 +120,6 @@ function handlePatternData({
     };
     elById('download').onclick = download;
     download();
-
-    sys2pat([...data]);
 
     elById('push').onclick = async () => {
         console.log('data', data);
@@ -161,8 +161,12 @@ function handlePatternData({
 }
 
 elById('fileSelector').onchange = async (event) => {
+    // 2 remove
+    sys2pat([...lastdata]);
     const file = (<HTMLInputElement>event.target).files[0];
     const data = pat2sys([...new Uint8Array(await file.arrayBuffer())]);
+    // checkDiff(lastdata, data, true);
+    console.log([...lastdata].slice(0, 20), data.slice(0, 20));
     parseMessage(data);
 };
 
