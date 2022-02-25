@@ -24,13 +24,9 @@ export function checkDiff(data: number[], result: number[], onlyDiff = false) {
     console.log({ diffCount, dataLen: data.length });
 }
 
-let yodata;
-
 // cmp -l 091_Basement3.e2pat  hello.e2pat
 export function sys2pat(data: number[]) {
     const trimmedData = data.slice(SYSEX_SEND_CURRENT_PATTERN.length, -1);
-    yodata = [...trimmedData];
-    console.log('sys2pat', yodata.length);
     const converted = sys2patConvert(trimmedData);
     return [...E2_BIN_HEADER, ...converted];
 }
@@ -45,8 +41,6 @@ function sys2patConvert(data: number[]) {
 export function pat2sys(data: number[]) {
     const trimmedData = data.slice(E2_BIN_HEADER.length);
     const converted = pat2sysConvert(trimmedData);
-    checkDiff(yodata, converted, true);
-    console.log(SYSEX_SEND_CURRENT_PATTERN, converted.slice(0, 10), yodata.slice(0,10));
     return [...SYSEX_SEND_CURRENT_PATTERN, ...converted, 0xf7];
 }
 

@@ -7,7 +7,7 @@
     "dev": "parcel",
     "dev:https": "parcel --https",
     "start": "parcel",
-    "build": "parcel build --public-url '.'"
+    "build": "rm -rf ./dist && parcel build --public-url '.'"
   },
   "repository": {
     "type": "git",

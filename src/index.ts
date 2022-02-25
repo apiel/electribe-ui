@@ -93,7 +93,6 @@ event.onWriteDone = () => console.log('Write done successfully.');
 
 event.onPatternData = handlePatternData;
 
-let lastdata;
 function handlePatternData({
     pattern: { name, tempo, beat, length, part, ...pattern },
     data,
@@ -101,7 +100,6 @@ function handlePatternData({
     pattern: Pattern;
     data: number[];
 }) {
-    lastdata = data;
     console.log(part.map(({ modulation }) => modulation));
 
     elById('send').onclick = () => {
@@ -161,12 +159,8 @@ function handlePatternData({
 }
 
 elById('fileSelector').onchange = async (event) => {
-    // 2 remove
-    sys2pat([...lastdata]);
     const file = (<HTMLInputElement>event.target).files[0];
     const data = pat2sys([...new Uint8Array(await file.arrayBuffer())]);
-    // checkDiff(lastdata, data, true);
-    console.log([...lastdata].slice(0, 20), data.slice(0, 20));
     parseMessage(data);
 };
 
