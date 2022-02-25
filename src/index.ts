@@ -119,6 +119,8 @@ function handlePatternData({
     elById('download').onclick = download;
     download();
 
+    sys2pat([...data]);
+
     elById('push').onclick = async () => {
         console.log('data', data);
         const e2pat = sys2pat([...data]);

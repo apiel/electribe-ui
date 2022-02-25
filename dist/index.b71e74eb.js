@@ -597,6 +597,9 @@ function handlePatternData({ pattern: { name , tempo , beat , length , part , ..
     };
     _dom.elById('download').onclick = download;
     download();
+    _codec.sys2pat([
+        ...data
+    ]);
     _dom.elById('push').onclick = async ()=>{
         console.log('data', data);
         const e2pat = _codec.sys2pat([
@@ -3536,7 +3539,7 @@ exports.SYSEX_GET_CURRENT_PATTERN = __spreadArray(__spreadArray([], __read(expor
 ], false); // F0,42,30,00,01,23,10,F7
 exports.SYSEX_SEND_CURRENT_PATTERN = __spreadArray(__spreadArray([], __read(exports.E2_SYSEX_HEADER), false), [
     64,
-    247
+    0
 ], false);
 var SYSEX_GET_PATTERN = function(pos) {
     return __spreadArray(__spreadArray([], __read(exports.E2_SYSEX_HEADER), false), [
@@ -3829,10 +3832,6 @@ exports.generateHexE2BinHeader = generateHexE2BinHeader;
 },{}],"4Z4fK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-// see https://github.com/bangcorrupt/e2-scripts
-// too lazy to implement unit test
-// const res = sys2pat([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
-// console.log(res, res.toString() === [130, 3, 4, 5, 6, 7, 8, 138, 11, 12, 141, 14, 15, 16].toString());
 // cmp -l 091_Basement3.e2pat  hello.e2pat
 parcelHelpers.export(exports, "sys2pat", ()=>sys2pat
 );
@@ -3840,11 +3839,32 @@ parcelHelpers.export(exports, "pat2sys", ()=>pat2sys
 );
 // should move this to electribe-core
 var _dist = require("electribe-core/dist");
+// see https://github.com/bangcorrupt/e2-scripts
+// too lazy to implement unit test
+// const res = sys2pat([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
+// console.log(res, res.toString() === [130, 3, 4, 5, 6, 7, 8, 138, 11, 12, 141, 14, 15, 16].toString());
+// const test = [...Array(10008)].map(e=>~~(Math.random()*127));
+// const test = [...(<any>Array(102).keys())];
+// const res = pat2sysConvert(sys2patConvert([...test]));
+// checkDiff(test, res);
+function checkDiff(data, result, onlyDiff = false) {
+    let diffCount = 0;
+    data.forEach((value, i)=>{
+        const diff = value !== result[i];
+        diff && diffCount++;
+        (!onlyDiff || diff) && console.log(i % 8, value, result[i], diff ? `<<<<< (${i})` : '');
+    });
+    console.log({
+        diffCount,
+        dataLen: data.length
+    });
+}
 function sys2pat(data) {
     const trimmedData = data.slice(_dist.SYSEX_SEND_CURRENT_PATTERN.length - 1, -1);
+    const converted = sys2patConvert(trimmedData);
     return [
         ..._dist.E2_BIN_HEADER,
-        ...sys2patConvert(trimmedData)
+        ...converted
     ];
 }
 function sys2patConvert(data) {
@@ -3852,14 +3872,6 @@ function sys2patConvert(data) {
     return chunks.flatMap(([first, ...values])=>values.map((a, i)=>a | (first & 1 << i) >> i << 7
         )
     );
-}
-function chunk(data, chunkSize) {
-    const res = [];
-    while(data.length > 0){
-        const chunk1 = data.splice(0, chunkSize);
-        res.push(chunk1);
-    }
-    return res;
 }
 function pat2sys(data) {
     const trimmedData = data.slice(_dist.E2_BIN_HEADER.length - 1);
@@ -3870,34 +3882,49 @@ function pat2sys(data) {
         247
     ];
 }
-// let res = pat2sysConvert([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
-// console.log(res, res.toString() === [0, 1, 2, 3, 4, 5, 6, 7, 0, 8, 9, 10, 11, 12, 13, 14, 0, 15, 16].toString());
-// res = pat2sysConvert([130, 3, 4, 5, 6, 7, 8, 138, 11, 12, 141, 14, 15, 16]);
-// console.log(res, res.toString() === [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].toString());
-// const testData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-// res = sys2patConvert(pat2sysConvert(testData));
-// console.log(res, res.toString() === testData.toString());
 function pat2sysConvert(data) {
-    let lim = 0;
-    let b = 0;
-    let tmp = [];
-    return data.flatMap((e, i)=>{
-        const cnt = 6 - i % 7;
-        tmp.push(e & -129);
-        b |= (e & 128) >> cnt + 1;
-        if (cnt === lim) {
-            if (data.length - i < 7) lim = 7 - (data.length - i) + 1;
-            const res = [
-                b,
-                ...tmp
-            ];
-            tmp = [];
-            b = 0;
-            return res;
-        }
-        return [];
+    const chunks = chunk(data, 7);
+    return chunks.flatMap((values)=>{
+        let first = 0;
+        const rest = values.map((a, i)=>{
+            first |= (a & 128) >> 7 - i; // 128 = 1 << 7 = Math.pow(2, 7) = 2*2*2*2*2*2*2
+            // first |= (a & (1 << 7)) >> (7 - i);
+            return a & -129;
+        });
+        return [
+            first,
+            ...rest
+        ];
     });
-} // function pat2sysConvert(data: number[]) {
+}
+function chunk(data, chunkSize) {
+    const res = [];
+    while(data.length > 0){
+        const chunk1 = data.splice(0, chunkSize);
+        res.push(chunk1);
+    }
+    return res;
+} // function pat2sysConvert4(data: number[]) {
+ //     let lim = 0;
+ //     let b = 0;
+ //     let tmp: number[] = [];
+ //     return data.flatMap((e, i) => {
+ //         const cnt = 6 - (i % 7);
+ //         tmp.push(e & ~0b10000000);
+ //         b |= (e & 0b10000000) >> (cnt + 1);
+ //         if (cnt === lim) {
+ //             if (data.length - i < 7) {
+ //                 lim = 7 - (data.length - i) + 1;
+ //             }
+ //             const res = [b, ...tmp];
+ //             tmp = [];
+ //             b = 0;
+ //             return res;
+ //         }
+ //         return [];
+ //     });
+ // }
+ // function pat2sysConvert3(data: number[]) {
  //     let lng = data.length;
  //     let lim = 0;
  //     let b = 0;
@@ -3924,6 +3951,24 @@ function pat2sysConvert(data) {
  //         }
  //     });
  //     return lst.flat();
+ // }
+ // function sys2patConvert(data: number[]) {
+ //     const chunks = chunk(data, 8);
+ //     return chunks.flatMap(([first, ...values]) =>
+ //         (<number[]>values).map((a, i) => {
+ //             console.log(
+ //                 i,
+ //                 a | (((first & (1 << i)) >> i) << 7),
+ //                 a,
+ //                 first,
+ //                 ((first & (1 << i)) >> i) << 7,
+ //                 (first & (1 << i)) >> i,
+ //                 first & (1 << i),
+ //                 1 << i
+ //             );
+ //             return a | (((first & (1 << i)) >> i) << 7);
+ //         }),
+ //     );
  // }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","electribe-core/dist":"6gcYi"}],"gkKU3":[function(require,module,exports) {
