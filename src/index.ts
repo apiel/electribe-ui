@@ -1,4 +1,5 @@
 import { Octokit } from '@octokit/core';
+
 import {
     event,
     parseMessage,
@@ -7,13 +8,12 @@ import {
     Pattern,
     setName,
     SYSEX_GET_CURRENT_PATTERN,
+    pat2sys,
+    sys2pat,
 } from 'electribe-core';
-import { checkDiff, pat2sys, sys2pat } from './codec';
 import { elByClass, elById, evEach, forEachClass, inputById } from './dom';
-
-import './setting';
 import { gitHubStorage } from './storage/GitHubStorage';
-import { getGithubToken } from './storage/localStorage';
+import './setting';
 import './log';
 
 // Define fake html lit-html
