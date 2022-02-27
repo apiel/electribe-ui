@@ -1,23 +1,22 @@
 <h1>Electribe UI</h1>
 <a class="topBtn viewBtn" data-view="settingView">⚙</a>
-I/O: <span id="io">None</span><br />
-<div>
-    <include src="svg/synth.svg"></include>
-    <button id="send">Send</button>
-    <button id="load">Load</button>
+<div id="patternActions">
+    <div>
+        <span><include src="svg/synth.svg"></include></span>
+        <button id="send">Send</button>
+        <button id="load">Load</button>
+    </div>
+    <div>
+        <span><include src="svg/github.svg"></include></span>
+        <button id="push">Push</button>
+        <button class="viewBtn" data-view="gitFileSelectorView">Pull</button>
+    </div>
+    <div>
+        <span><include src="svg/laptop.svg"></include></span>
+        <a id="download">Download</a>
+        <input type="file" id="fileSelector" accept=".e2pat" />
+    </div>
 </div>
-<div>
-    <include src="svg/github.svg"></include>
-    <button id="push">Push</button>
-    <button class="viewBtn" data-view="gitFileSelectorView">Pull</button>
-</div>
-
-<div>
-    <include src="svg/laptop.svg"></include>
-    <a id="download">Download</a>
-    <input type="file" id="fileSelector" accept=".e2pat" />
-</div>
-
 <div id="pattern">
     <h2 id="pattern-name"></h2>
     <input id="edit-name" maxlength=15 />

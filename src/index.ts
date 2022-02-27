@@ -279,7 +279,17 @@ function renderPart({
                 </div>
                 <div class="envelope">
                     <h4>Envelope</h4>
-                    ${renderDetails(envelope)}
+                    <div class="level">
+                        <span class="label">Level</span
+                        ><span>${envelope.level}</span
+                        ><span>${envelope.pan}</span>
+                    </div>
+                    <div class="ampEG ${envelope.ampEG ? 'on' : 'off'}">
+                        <span class="label">Attack</span
+                        ><span>${envelope.attack}</span
+                        ><span class="label">Decay</span
+                        ><span>${envelope.decayRelease}</span>
+                    </div>
                 </div>
                 <div class="setting">
                     <h4>Settings</h4>

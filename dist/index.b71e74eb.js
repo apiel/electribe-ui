@@ -744,7 +744,17 @@ function renderPart({ name , oscillator , filter , modulation , effect , envelop
                 </div>
                 <div class="envelope">
                     <h4>Envelope</h4>
-                    ${renderDetails(envelope)}
+                    <div class="level">
+                        <span class="label">Level</span
+                        ><span>${envelope.level}</span
+                        ><span>${envelope.pan}</span>
+                    </div>
+                    <div class="ampEG ${envelope.ampEG ? 'on' : 'off'}">
+                        <span class="label">Attack</span
+                        ><span>${envelope.attack}</span
+                        ><span class="label">Decay</span
+                        ><span>${envelope.decayRelease}</span>
+                    </div>
                 </div>
                 <div class="setting">
                     <h4>Settings</h4>
@@ -4162,10 +4172,6 @@ exports.export = function(dest, destName, get) {
 };
 
 },{}],"falTm":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "loadSequences", ()=>loadSequences
-);
 var _dom = require("./dom");
 var _gitHubStorage = require("./storage/GitHubStorage");
 var _localStorage = require("./storage/localStorage");
@@ -4177,20 +4183,8 @@ _dom.elById('githubToken').onchange = _dom.evStrVal(_localStorage.storeGithubTok
 _dom.inputById('githubToken').value = _localStorage.getGithubToken();
 _gitHubStorage.gitHubStorage.info().then((info)=>_dom.elById('githubInfo').innerText = info
 );
-async function loadSequences() {
-// const dir = await gitHubStorage.readdir('samples');
-// console.log({ dir });
-// const octokit = new Octokit({ auth: getGithubToken() });
-// const response = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
-//     owner: 'apiel',
-//     repo: 'zic',
-//     // path: 'path'
-//   })
-// console.log(response);
-}
-loadSequences();
 
-},{"./dom":"4c0m4","./storage/GitHubStorage":"drxmx","./storage/localStorage":"4zXFG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"drxmx":[function(require,module,exports) {
+},{"./dom":"4c0m4","./storage/GitHubStorage":"drxmx","./storage/localStorage":"4zXFG"}],"drxmx":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ERR", ()=>ERR

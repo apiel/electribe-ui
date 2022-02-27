@@ -15,6 +15,41 @@ body {
     display: none;
 }
 
+.clearBoth {
+    clear: both;
+}
+
+#pattern {
+    clear: both;
+    padding-top: 5px;
+}
+
+#patternActions > div {
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #4d7ec3;
+    border-radius: 4px;
+    height: 30px;
+}
+
+#patternActions > div > button {
+    background: #4d7ec3;
+    color: #FFF;
+    border: 0;
+    height: 30px;
+}
+
+#patternActions > div > span {
+    padding-right: 2px;
+    padding-left: 8px;
+}
+
+#patternActions > div svg {
+    color: #4d7ec3;
+    fill: #4d7ec3;
+}
+
 #parts {
     --grid-cols: 1;
     display: grid;
@@ -92,12 +127,53 @@ body {
 }
 
 .part .onOff.on {
-    background: #60c453;
+    background: #69b95e;
 }
 
 .part .onOff span {
     color: #555;
     font-size: 12px;
+}
+
+.part .envelope > div {
+    margin: 5px 0;
+}
+
+.part .envelope > div > span {
+    border: 1px solid #4d7ec3;
+    font-size: 12px;
+    padding: 2px 5px;
+}
+
+.part .envelope > div > span.label {
+    background: #4d7ec3;
+    color: #fff;
+}
+
+.part .envelope > div.on > span {
+    border: 1px solid #69b95e;
+}
+
+.part .envelope > div.on > span.label {
+    background: #69b95e;
+}
+
+.part .envelope > div.off > span {
+    border: 1px solid #E07777;
+}
+
+.part .envelope > div.off > span.label {
+    background: #E07777;
+}
+
+.part .envelope > div > span:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.part .envelope > div > span:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
 }
 
 .part .content {
