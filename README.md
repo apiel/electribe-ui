@@ -1,4 +1,4 @@
-Work only on Chrome
+Work only on Chrome, only for E2 not E2s
 
 https://apiel.github.io/electribe-ui/dist/index.html
 
