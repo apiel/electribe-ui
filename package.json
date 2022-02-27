@@ -4,9 +4,9 @@
   "description": "",
   "source": "src/index.html",
   "scripts": {
-    "dev": "parcel",
-    "dev:https": "parcel --https",
-    "start": "parcel",
+    "dev": "rm -rf ./dist && parcel",
+    "dev:https": "rm -rf ./dist && parcel --https",
+    "start": "rm -rf ./dist && parcel",
     "build": "rm -rf ./dist && parcel build --public-url '.'"
   },
   "repository": {
@@ -35,7 +35,7 @@
   "dependencies": {
     "@octokit/core": "^3.5.1",
     "@types/webmidi": "^2.0.6",
-    "electribe-core": "^0.0.16",
+    "electribe-core": "^0.0.18",
     "uninstall": "^0.0.0"
   }
 }

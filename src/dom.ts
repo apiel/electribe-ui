@@ -1,3 +1,11 @@
+import * as dom from './dom';
+
+(window as any).$ = dom;
+
+export function elSel(selector: string) {
+    return document.querySelectorAll(selector);
+}
+
 // export function evNumVal(fn: (val: number) => void) {
 //     return evStrVal((val) => fn(Number(val)));
 // }

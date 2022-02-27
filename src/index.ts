@@ -10,6 +10,7 @@ import {
     SYSEX_GET_CURRENT_PATTERN,
     pat2sys,
     sys2pat,
+    START_POS,
 } from 'electribe-core';
 import { elByClass, elById, evEach, forEachClass, inputById } from './dom';
 import { gitHubStorage } from './storage/GitHubStorage';
@@ -154,6 +155,33 @@ function handlePatternData({
     elById('pattern-detail').innerHTML = renderDetails(pattern);
 
     elById('parts').innerHTML = parts.map(renderPart).join('');
+
+    parts.forEach(({ name: id }, i) => {
+        // download
+        const a = <any>elById(id).getElementsByClassName('download')[0];
+        const partDownload = () => {
+            const e2part = [...data].slice(START_POS[i], START_POS[i] + 930);
+            a.href =
+                'data:application/octet-stream;base64,' +
+                Buffer.from(e2part).toString('base64');
+            a.download = `${name}_${id.replace(' ', '')}.e2part`;
+        };
+        a.onclick = partDownload;
+        partDownload();
+
+        // upload
+
+        (<HTMLInputElement>(
+            elById(id).getElementsByClassName('fileSelector')[0]
+        )).onchange = async (event) => {
+            const file = (<HTMLInputElement>event.target).files[0];
+            const partData = [...new Uint8Array(await file.arrayBuffer())];
+            const startData = [...data].slice(0, START_POS[i]);
+            const endData = [...data].slice(START_POS[i] + 930);
+            const newData = [...startData, ...partData, ...endData];
+            parseMessage(newData);
+        };
+    });
 }
 
 elById('fileSelector').onchange = async (event) => {
@@ -203,7 +231,7 @@ function renderPart({
     settings,
 }: Part) {
     return html`
-        <div class="part">
+        <div class="part" id="${name}">
             <h3>${name}</h3>
             <div class="content">
                 <div class="oscillator">
@@ -246,6 +274,10 @@ function renderPart({
                 <div class="setting">
                     <h4>Settings</h4>
                     ${renderDetails(settings)}
+                </div>
+                <div>
+                    <input type="file" class="fileSelector" accept=".e2part" />
+                    <a class="download">Download</a>
                 </div>
             </div>
         </div>
