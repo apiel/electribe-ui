@@ -1,3 +1,9 @@
+const eleLog = document.getElementById('log');
+
+if (new URLSearchParams(window.location.search).get('log') !== null) {
+    eleLog.style.display = 'block';
+}
+
 rewireLoggingToElement();
 
 function rewireLoggingToElement() {
@@ -6,13 +12,6 @@ function rewireLoggingToElement() {
     fixLoggingFunc('warn');
     fixLoggingFunc('error');
     fixLoggingFunc('info');
-
-    const eleLog = document.getElementById('log');
-
-    document.getElementById('toggleLog').onclick = () => {
-        eleLog.style.display =
-            eleLog.style.display === 'none' ? 'block' : 'none';
-    };
 
     function fixLoggingFunc(name: string) {
         console['old' + name] = console[name];

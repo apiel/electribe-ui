@@ -188,7 +188,21 @@ elById('pattern-tempo').onclick = () => {
 
 evEach(elByClass('viewBtn'), 'click', (event) => {
     forEachClass('view', (el) => ((<HTMLElement>el).style.display = 'none'));
-    elById((<HTMLElement>event.target).dataset.view).style.display = 'block';
+    const el = elById((<HTMLElement>event.target).dataset.view);
+    el.style.display = 'block';
+    el.dispatchEvent(new Event('display'));
+});
+
+elById('gitFileSelectorView').addEventListener('display', async () => {
+    const files = await gitHubStorage.readdir('/');
+    elById('gitFiles').innerHTML = files.filter((f) => f.endsWith('.e2pat')).map((file) => html`
+        <div class="gitFile">${file}</div>
+    `).join('');
+    // elByClass('gitFile').onclick
+    evEach(elByClass('gitFile'), 'click', (event) => {
+        const filename = (<HTMLElement>event.target).innerText;
+        console.log('Load file', filename);
+    });
 });
 
 function svgEdit() {

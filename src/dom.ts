@@ -21,7 +21,7 @@ export function evEach(
     type: string,
     listener: EventListenerOrEventListenerObject,
 ) {
-    Array.from(elements).forEach((el) => el.addEventListener(type, listener));
+    [...elements].forEach((el) => el.addEventListener(type, listener));
 }
 
 // export function applyToChild(
