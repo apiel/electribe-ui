@@ -91,7 +91,11 @@ body {
     cursor: pointer;
 }
 
-#settingView {
+#mainView {
+    display: block;
+}
+
+.view {
     display: none;
 }
 

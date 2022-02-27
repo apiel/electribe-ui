@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/apiel/electribe-ui#readme",
   "devDependencies": {
-    "@types/node": "^17.0.19",
     "buffer": "^6.0.3",
     "express": "^4.17.3",
     "lmdb": "^2.2.1",
@@ -33,7 +32,6 @@
     "ts-node-dev": "^1.1.8"
   },
   "dependencies": {
-    "@octokit/core": "^3.5.1",
     "@types/webmidi": "^2.0.6",
     "electribe-core": "^0.0.18",
     "uninstall": "^0.0.0"

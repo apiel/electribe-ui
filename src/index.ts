@@ -1,5 +1,3 @@
-import { Octokit } from '@octokit/core';
-
 import {
     event,
     parseMessage,
@@ -119,22 +117,8 @@ function handlePatternData({
     download();
 
     elById('push').onclick = async () => {
-        console.log('data', data);
         const e2pat = sys2pat([...data]);
-        console.log('e2pat', e2pat);
-        await gitHubStorage.saveFile('hello.e2pat', e2pat);
-
-        // or
-
-        // const octokit = new Octokit({ auth: getGithubToken() });
-        // await octokit.request('PUT /repos/{owner}/{repo}/contents/{path}', {
-        //     owner: 'apiel',
-        //     repo: 'zic',
-        //     path: 'yo.e2pat',
-        //     message: 'message',
-        //     content: Buffer.from(e2pat).toString('base64'),
-        //     // content: btoa(e2pat as any)
-        // });
+        await gitHubStorage.saveFile(`${name.replace(/ /g, '_')}.e2pat`, e2pat);
     };
 
     inputById('edit-name').onblur = () => {
@@ -202,7 +186,7 @@ elById('pattern-tempo').onclick = () => {
         display === 'block' ? 'none' : 'block';
 };
 
-evEach(elByClass('topBtn'), 'click', (event) => {
+evEach(elByClass('viewBtn'), 'click', (event) => {
     forEachClass('view', (el) => ((<HTMLElement>el).style.display = 'none'));
     elById((<HTMLElement>event.target).dataset.view).style.display = 'block';
 });

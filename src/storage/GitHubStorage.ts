@@ -1,7 +1,4 @@
-// we should try to get rid of node specific import
-// and then npm uninstall @types/node
-
-import { basename, dirname } from 'path';
+// might want to use import { Octokit } from '@octokit/core';
 
 import { getGithubRepo, getGithubToken, getGithubUser } from './localStorage';
 
@@ -25,105 +22,9 @@ export class GitHubStorage {
         }
     }
 
-    async image(path: string) {
-        const data = await this.getContents(path);
-        if (data.content) {
-            return Buffer.from(data.content, 'base64');
-        }
-        return data.download_url;
-    }
-
-    async blob(path: string) {
-        const data = await this.getContents(dirname(path)); // we might need to increase limit
-        const filename = basename(path);
-        const filedata = data.find((item: any) => item.name === filename);
-        if (!filedata) {
-            return;
-        }
-        const {
-            data: { content },
-        } = await this.fetch(`${this.blobUrl}/${filedata.sha}`);
-        return Buffer.from(content, 'base64');
-    }
-
-    async saveBlob(file: string, content: Buffer) {
-        await this.remove(file);
-        const [
-            {
-                sha: latestCommitSha,
-                commit: {
-                    tree: { sha: base_tree },
-                },
-            },
-        ] = await this.fetch(`${this.baseRepo}/commits`);
-
-        const { sha: newBlobSha } = await this.fetch(this.blobUrl, {
-            method: 'POST',
-            body: JSON.stringify({
-                content: content.toString('base64'),
-                encoding: 'base64',
-            }),
-        });
-
-        const { sha: newTreeSha } = await this.fetch(
-            `${this.baseRepo}/git/trees`,
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    base_tree,
-                    tree: [
-                        {
-                            path: file,
-                            mode: '100644',
-                            sha: newBlobSha,
-                        },
-                    ],
-                }),
-            },
-        );
-
-        const { sha: shaCommit } = await this.fetch(
-            `${this.baseRepo}/git/commits`,
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    message: `${COMMIT_PREFIX} save blob`,
-                    tree: newTreeSha,
-                    parents: [latestCommitSha],
-                }),
-            },
-        );
-
-        await this.fetch(`${this.baseRepo}/git/refs/heads/master`, {
-            method: 'PATCH',
-            body: JSON.stringify({ sha: shaCommit }),
-        });
-        // console.log('Blob saved', file);
-    }
-
     async read(path: string) {
         const { content } = await this.getContents(path);
         return Buffer.from(content, 'base64');
-    }
-
-    async readJSON(path: string) {
-        try {
-            return JSON.parse((await this.read(path)).toString());
-        } catch (error) {
-            return undefined;
-        }
-    }
-
-    async remove(file: string) {
-        const { sha } = await this.getContents(file);
-        const body = JSON.stringify({
-            message: `${COMMIT_PREFIX} delete file`,
-            sha,
-        });
-        return this.fetch(`${this.contentsUrl}/${file}`, {
-            method: 'DELETE',
-            body,
-        });
     }
 
     async saveFile(file: string, content: string | number[]) {
@@ -150,24 +51,6 @@ export class GitHubStorage {
             if (error?.response?.status !== 404) {
                 throw error;
             }
-        }
-    }
-
-    saveJSON(file: string, content: any) {
-        return this.saveFile(file, JSON.stringify(content, null, 4));
-    }
-
-    async copy(src: string, dst: string) {
-        const srcData = await this.read(src);
-        if (srcData) {
-            this.saveFile(dst, srcData.toString());
-        }
-    }
-
-    async copyBlob(src: string, dst: string) {
-        const srcData = await this.blob(src);
-        if (srcData) {
-            await this.saveBlob(dst, srcData);
         }
     }
 
@@ -215,10 +98,6 @@ export class GitHubStorage {
 
     protected get contentsUrl() {
         return `${this.baseRepo}/contents`;
-    }
-
-    protected get blobUrl() {
-        return `${this.baseRepo}/git/blobs`;
     }
 
     protected get user() {
