@@ -94,14 +94,12 @@ event.onWriteDone = () => console.log('Write done successfully.');
 event.onPatternData = handlePatternData;
 
 function handlePatternData({
-    pattern: { name, tempo, beat, length, part, ...pattern },
+    pattern: { name, tempo, beat, length, parts, ...pattern },
     data,
 }: {
     pattern: Pattern;
     data: number[];
 }) {
-    console.log(part.map(({ modulation }) => modulation));
-
     elById('send').onclick = () => {
         console.log('try to send data', data);
         midiOutput.send(data);
@@ -155,7 +153,7 @@ function handlePatternData({
 
     elById('pattern-detail').innerHTML = renderDetails(pattern);
 
-    elById('parts').innerHTML = part.map(renderPart).join('');
+    elById('parts').innerHTML = parts.map(renderPart).join('');
 }
 
 elById('fileSelector').onchange = async (event) => {
@@ -202,7 +200,7 @@ function renderPart({
     modulation,
     effect,
     envelope,
-    ...rest
+    settings,
 }: Part) {
     return html`
         <div class="part">
@@ -246,8 +244,8 @@ function renderPart({
                     ${renderDetails(envelope)}
                 </div>
                 <div class="setting">
-                    <h4>Setting</h4>
-                    ${renderDetails(rest)}
+                    <h4>Settings</h4>
+                    ${renderDetails(settings)}
                 </div>
             </div>
         </div>
