@@ -192,6 +192,14 @@ body {
     text-transform: uppercase;
 }
 
+.part .file {
+    text-align: center;
+    border-top: 1px solid #4d7ec3;
+    /* background-color: #f2f6fd; */
+    padding-top: 5px;
+    margin-top: 10px;
+}
+
 .part h4 {
     margin: 10px 0 1px;
 }

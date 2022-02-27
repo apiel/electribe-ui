@@ -295,7 +295,7 @@ function renderPart({
                     <h4>Settings</h4>
                     ${renderDetails(settings)}
                 </div>
-                <div>
+                <div class="file">
                     <input type="file" class="fileSelector" accept=".e2part" />
                     <a class="download">Download</a>
                 </div>
