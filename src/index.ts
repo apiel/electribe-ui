@@ -186,22 +186,30 @@ elById('pattern-tempo').onclick = () => {
         display === 'block' ? 'none' : 'block';
 };
 
-evEach(elByClass('viewBtn'), 'click', (event) => {
+function displayView(id: string) {
     forEachClass('view', (el) => ((<HTMLElement>el).style.display = 'none'));
-    const el = elById((<HTMLElement>event.target).dataset.view);
+    const el = elById(id);
     el.style.display = 'block';
     el.dispatchEvent(new Event('display'));
-});
+}
+
+evEach(elByClass('viewBtn'), 'click', (event) =>
+    displayView((<HTMLElement>event.target).dataset.view),
+);
 
 elById('gitFileSelectorView').addEventListener('display', async () => {
     const files = await gitHubStorage.readdir('/');
-    elById('gitFiles').innerHTML = files.filter((f) => f.endsWith('.e2pat')).map((file) => html`
-        <div class="gitFile">${file}</div>
-    `).join('');
-    // elByClass('gitFile').onclick
-    evEach(elByClass('gitFile'), 'click', (event) => {
+    elById('gitFiles').innerHTML = files
+        .filter((f) => f.endsWith('.e2pat'))
+        .map((file) => html` <div class="gitFile">${file}</div> `)
+        .join('');
+    evEach(elByClass('gitFile'), 'click', async (event) => {
         const filename = (<HTMLElement>event.target).innerText;
-        console.log('Load file', filename);
+        const data = pat2sys([
+            ...new Uint8Array(await gitHubStorage.read(filename)),
+        ]);
+        parseMessage(data);
+        displayView('mainView');
     });
 });
 
@@ -240,7 +248,7 @@ function renderPart({
                             (${oscillator.name.type})</span
                         >
                     </h4>
-                    ${renderDetails(oscillator)}
+                    <div class="inline">${renderDetails(oscillator)}</div>
                 </div>
                 <div class="filter">
                     <h4>
@@ -251,7 +259,7 @@ function renderPart({
                 </div>
                 <div class="modulation">
                     <h4>
-                        Modulation
+                        Mod
                         <span
                             title="${modulation.name.source} to ${modulation
                                 .name.destination} (bpmSync: ${modulation.name
@@ -259,11 +267,15 @@ function renderPart({
                             >${modulation.name.name} ⓘ</span
                         >
                     </h4>
-                    ${renderDetails(modulation)}
+                    <div class="inline">${renderDetails(modulation)}</div>
                 </div>
                 <div class="effect">
-                    <h4>Effect <span>${effect.name}</span></h4>
-                    ${renderDetails(effect)}
+                    <div class="onOff ${effect.on ? 'on' : 'off'}">
+                        <div>IFX <span>${effect.name}</span></div>
+                        <div class="${effect.on ? 'on' : 'off'}">
+                            ${effect.edit}
+                        </div>
+                    </div>
                 </div>
                 <div class="envelope">
                     <h4>Envelope</h4>
@@ -300,5 +312,5 @@ function renderDetail(key: string, value: any) {
     } else if (typeof value === 'object') {
         // ??
     }
-    return html`<div><span>${key}</span>: <span>${value}</span></div>`;
+    return html`<div><span>${key}</span> <span>${value}</span></div>`;
 }

@@ -666,24 +666,27 @@ _dom.elById('pattern-tempo').onclick = ()=>{
     const display = _dom.elById('pattern-detail').style.display;
     _dom.elById('pattern-detail').style.display = display === 'block' ? 'none' : 'block';
 };
-_dom.evEach(_dom.elByClass('viewBtn'), 'click', (event)=>{
+function displayView(id) {
     _dom.forEachClass('view', (el)=>el.style.display = 'none'
     );
-    const el1 = _dom.elById(event.target.dataset.view);
+    const el1 = _dom.elById(id);
     el1.style.display = 'block';
     el1.dispatchEvent(new Event('display'));
-});
+}
+_dom.evEach(_dom.elByClass('viewBtn'), 'click', (event)=>displayView(event.target.dataset.view)
+);
 _dom.elById('gitFileSelectorView').addEventListener('display', async ()=>{
     const files = await _gitHubStorage.gitHubStorage.readdir('/');
     _dom.elById('gitFiles').innerHTML = files.filter((f)=>f.endsWith('.e2pat')
-    ).map((file)=>html`
-        <div class="gitFile">${file}</div>
-    `
+    ).map((file)=>html` <div class="gitFile">${file}</div> `
     ).join('');
-    // elByClass('gitFile').onclick
-    _dom.evEach(_dom.elByClass('gitFile'), 'click', (event)=>{
+    _dom.evEach(_dom.elByClass('gitFile'), 'click', async (event)=>{
         const filename = event.target.innerText;
-        console.log('Load file', filename);
+        const data = _electribeCore.pat2sys([
+            ...new Uint8Array(await _gitHubStorage.gitHubStorage.read(filename)), 
+        ]);
+        _electribeCore.parseMessage(data);
+        displayView('mainView');
     });
 });
 function svgEdit() {
@@ -712,7 +715,7 @@ function renderPart({ name , oscillator , filter , modulation , effect , envelop
                             (${oscillator.name.type})</span
                         >
                     </h4>
-                    ${renderDetails(oscillator)}
+                    <div class="inline">${renderDetails(oscillator)}</div>
                 </div>
                 <div class="filter">
                     <h4>
@@ -723,17 +726,21 @@ function renderPart({ name , oscillator , filter , modulation , effect , envelop
                 </div>
                 <div class="modulation">
                     <h4>
-                        Modulation
+                        Mod
                         <span
                             title="${modulation.name.source} to ${modulation.name.destination} (bpmSync: ${modulation.name.bpmSync} keySync: ${modulation.name.keySync})"
                             >${modulation.name.name} ⓘ</span
                         >
                     </h4>
-                    ${renderDetails(modulation)}
+                    <div class="inline">${renderDetails(modulation)}</div>
                 </div>
                 <div class="effect">
-                    <h4>Effect <span>${effect.name}</span></h4>
-                    ${renderDetails(effect)}
+                    <div class="onOff ${effect.on ? 'on' : 'off'}">
+                        <div>IFX <span>${effect.name}</span></div>
+                        <div class="${effect.on ? 'on' : 'off'}">
+                            ${effect.edit}
+                        </div>
+                    </div>
                 </div>
                 <div class="envelope">
                     <h4>Envelope</h4>
@@ -766,7 +773,7 @@ function renderDetails(data, skip = [
 function renderDetail(key, value) {
     if (typeof value === 'boolean') value = value ? 'on' : 'off';
     else 'object';
-    return html`<div><span>${key}</span>: <span>${value}</span></div>`;
+    return html`<div><span>${key}</span> <span>${value}</span></div>`;
 }
 
 },{"electribe-core":"6gcYi","./dom":"4c0m4","./setting":"falTm","./storage/GitHubStorage":"drxmx","buffer":"fCgem","./log":"2r2Y2"}],"6gcYi":[function(require,module,exports) {

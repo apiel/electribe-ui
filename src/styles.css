@@ -52,6 +52,54 @@ body {
     border-radius: 4px;
 }
 
+.part .inline {
+    display: flex;
+    flex-direction: row;
+}
+
+.part .inline > div {
+    margin-right: 10px;
+    border: 1px solid #4d7ec3;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.part .inline > div > span {
+    padding: 1px 5px;
+    text-transform: capitalize;
+}
+
+.part .inline > div > span:first-child {
+    background: #4d7ec3;
+    color: #fff;
+}
+
+.part .onOff {
+    display: flex;
+    flex-direction: row;
+
+    background: rgb(224, 119, 119);
+    border-radius: 4px;
+    color: #fff;
+    padding: 3px 5px;
+    margin: 10px 0 1px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.part .onOff > div {
+    margin-left: 10px;
+}
+
+.part .onOff.on {
+    background: #60c453;
+}
+
+.part .onOff span {
+    color: #555;
+    font-size: 12px;
+}
+
 .part .content {
     margin: 5px;
 }
