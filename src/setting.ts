@@ -9,7 +9,6 @@ import {
     storeGithubUser,
 } from './storage/localStorage';
 
-
 elById('githubUser').onchange = evStrVal(storeGithubUser);
 inputById('githubUser').value = getGithubUser();
 
@@ -19,4 +18,7 @@ inputById('githubRepo').value = getGithubRepo();
 elById('githubToken').onchange = evStrVal(storeGithubToken);
 inputById('githubToken').value = getGithubToken();
 
-gitHubStorage.info().then((info) => (elById('githubInfo').innerText = info));
+gitHubStorage
+    .info()
+    .then((info) => (elById('githubInfo').innerText = info))
+    .catch(console.error);

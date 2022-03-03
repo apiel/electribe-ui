@@ -118,7 +118,14 @@ function handlePatternData({
 
     elById('push').onclick = async () => {
         const e2pat = sys2pat([...data]);
-        await gitHubStorage.saveFile(`${name.replace(/ /g, '_')}.e2pat`, e2pat);
+        try {
+            await gitHubStorage.saveFile(
+                `${name.replace(/ /g, '_')}.e2pat`,
+                e2pat,
+            );
+        } catch (error) {
+            alert(error.message);
+        }
     };
 
     inputById('edit-name').onblur = () => {
@@ -198,19 +205,23 @@ evEach(elByClass('viewBtn'), 'click', (event) =>
 );
 
 elById('gitFileSelectorView').addEventListener('display', async () => {
-    const files = await gitHubStorage.readdir('/');
-    elById('gitFiles').innerHTML = files
-        .filter((f) => f.endsWith('.e2pat'))
-        .map((file) => html` <div class="gitFile">${file}</div> `)
-        .join('');
-    evEach(elByClass('gitFile'), 'click', async (event) => {
-        const filename = (<HTMLElement>event.target).innerText;
-        const data = pat2sys([
-            ...new Uint8Array(await gitHubStorage.read(filename)),
-        ]);
-        parseMessage(data);
-        displayView('mainView');
-    });
+    try {
+        const files = await gitHubStorage.readdir('/');
+        elById('gitFiles').innerHTML = files
+            .filter((f) => f.endsWith('.e2pat'))
+            .map((file) => html` <div class="gitFile">${file}</div> `)
+            .join('');
+        evEach(elByClass('gitFile'), 'click', async (event) => {
+            const filename = (<HTMLElement>event.target).innerText;
+            const data = pat2sys([
+                ...new Uint8Array(await gitHubStorage.read(filename)),
+            ]);
+            parseMessage(data);
+            displayView('mainView');
+        });
+    } catch (error) {
+        alert(error.message);
+    }
 });
 
 function svgEdit() {
